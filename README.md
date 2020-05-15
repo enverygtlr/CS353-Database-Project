@@ -16,7 +16,7 @@ Make sure you have Python 3.x and PostgreSQL installed on your computer.
 To install PostgreSQl on Ubuntu type the following in your command line:  
 sudo apt-get install postgresql-client-12 postgresql-12  
 Clone the repository using:   
-git clone https://github.com/Wondrous27/CS353-Database-Project.git  
+git clone -b dev https://github.com/Wondrous27/CS353-Database-Project.git  
 
 ## Python Virtual Environment  
 Python Virtual Environment is a copy of the Python interpreter. You can install packages without affecting the global Python interpreter in your system. To install venv use the following command:    
