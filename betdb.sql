@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS SUSER CASCADE;
+
+
 CREATE TABLE SUSER (
     id smallserial PRIMARY KEY,
     s_name VARCHAR(25) NOT NULL UNIQUE,
@@ -23,6 +26,7 @@ CREATE TABLE Editor(
     no_of_followers smallint NOT NULL
    
 )INHERITS (SUSER); 
+
 /*
 CREATE TABLE Bet (
     bet_id smallserial PRIMARY KEY,

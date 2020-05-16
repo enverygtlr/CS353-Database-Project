@@ -7,13 +7,13 @@ from wtforms.validators import DataRequired
 from flask_session import Session
 import psycopg2
 import psycopg2.extras
+
 print('your mom')
 def connectToDB():
     print('buraya geldim mi')
-    connectionString = 'dbname=bet user=dev password=dev host=localhost'
+    connectionString = 'dbname=bet user=postgres password=postgres host=localhost'
     print(connectionString)
     try:
-        print('connected to db')
         return psycopg2.connect(connectionString)
        
     except:
@@ -69,7 +69,7 @@ def index():
         session["notes"].append(note)
     return render_template('index.html', form=form, name=name, creators = results, notes = session["notes"])
 
-@app.route('/user/<name>')
-def user(name):
-    return render_template('user.html', name= name)
+@app.route('/user/<name>/<token>')
+def user(name, token):
+    return render_template('user.html', name= name, token = token)
 
