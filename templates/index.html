@@ -1,11 +1,36 @@
 {% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 
-{% block title %}WannaBet?{% endblock %}
+{% block title %}Home Page{% endblock %}
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
+    <h1>Hello, {% if name %}{{ name }}
+        {% else %}Stranger
+        {% endif %}!
+    </h1>
 </div>
-{{ wtf.quick_form(form) }}
+
+<!-- {{ wtf.quick_form(form) }} -->
+
+<ul>
+    {% for note in notes %}
+    <li> {{ note }} </li>
+    {% endfor %}
+</ul>
+<form action="{{ url_for('index') }}" method = "post" > 
+    <input type ="text" name="note" placeholder="Notunu gir">
+    <button> Note ekle </button>
+</form>
+    
+
+
+<div class = "creators">
+    <h1>Credits</h1>
+    <ul>
+        {% for creator in creators %}
+            <li> {{ creator }} </li>
+        {% endfor %}
+    </ul>
+</div>
 {% endblock %}

@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
-{% block title %} {{ name |capitalize }}'s Bets {% endblock %}
+{% block title %} {{ name |capitalize }}'s Betslips {% endblock %}
 
 {% block page_content %}
 <div class="page-header">
     <h1>Hello, {{ name }}!</h1>
+    <h3>Here are you bets:</h3>
+    <a href = "{{ url_for('index') }}" > TAKE ME HOME!!! </a>
 </div>
 {% endblock %}
 
