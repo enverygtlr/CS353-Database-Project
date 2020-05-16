@@ -6,7 +6,18 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from flask_session import Session
 import psycopg2
-
+import psycopg2.extras
+print('your mom')
+def connectToDB():
+    print('buraya geldim mi')
+    connectionString = 'dbname=bet user=dev password=dev host=localhost'
+    print(connectionString)
+    try:
+        print('connected to db')
+        return psycopg2.connect(connectionString)
+       
+    except:
+        print("cant connect to db")
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'hard to guess string'
 
@@ -35,6 +46,14 @@ def internal_server_error(e):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    conn = connectToDB()
+    cur = conn.cursor()
+    try:
+        cur.execute("select * from suser")
+    except:
+        print("error running sql")
+    results = cur.fetchall()
+    print(results)
     name = None
     form = NameForm()
     if session.get("notes") is None:
@@ -43,11 +62,12 @@ def index():
     if form.validate_on_submit():
         name = form.name.data
         form.name.data = ''
+    
     creators = ["Batuhan", "Berk", "Bombar", "Enver"]
     if request.method == "POST":
         note = request.form.get("note")
         session["notes"].append(note)
-    return render_template('index.html', form=form, name=name, creators = creators, notes = session["notes"])
+    return render_template('index.html', form=form, name=name, creators = results, notes = session["notes"])
 
 @app.route('/user/<name>')
 def user(name):
