@@ -44,12 +44,14 @@ def get_user_betslips(user_id, include_private=False):
     # herhangi bi userin shared content
     return [
         {
+            'expired':False,
             'betslip_id':0,
             'stake':1,
             'total_odd':3,
             'betslip_date':'May 3 2020',
             'bets':[
                 {
+                    'bet_id':1,
                     'team1':'FB', 
                     'team2':'BJK', 
                     'bet_type':'25ALT', 
@@ -93,6 +95,7 @@ def get_editor_suggestions_by_editor_id(editor_id):
     # bizim editorun suggestionlari!
     return [
         {
+            'bet_id':1,
             'team1':'FB', 
             'team2':'BJK', 
             'bet_type':'25ALT', 
@@ -116,3 +119,61 @@ def search_by_username(username):
 def follow_user(user_id, requested_user_id):
     return True or False
 
+def get_feed_posts(user_id):
+    return [
+        {
+            'betslip':
+            {
+                'expired':False,
+                'betslip_id':0,
+                'stake':1,
+                'total_odd':3,
+                'betslip_date':'May 3 2020',
+                'bets':[
+                    {
+                        'team1':'FB', 
+                        'team2':'BJK', 
+                        'bet_type':'25ALT', 
+                        'match_date':4, 
+                        'mnbn':4, 
+                        'odd':3.1
+                    }
+                ]
+            },
+            'username':'ali',
+            'comments':[
+                {'username':'Wo dude u r amazing!'}
+            ],
+            'likes':23,
+            'post_id':1
+        }
+    ]
+
+def get_suggestions(user_id):
+    return [
+        {
+            'bet':
+            {
+                'bet_id':1,
+                'team1':'FB', 
+                'team2':'BJK', 
+                'bet_type':'25ALT', 
+                'match_date':4, 
+                'mnbn':4, 
+                'odd':3.1
+            },
+            'username':'yahudi_ege_oflaz',
+            'description':'This is my first suggestion',
+            'trust_point':99,
+            'suggestion_id':1
+        }
+    ]
+
+def add_comment_to_post(user_id, post_id, comments):
+    return True
+
+def like_post(user_id, post_id):
+    return True
+
+
+# Extraaaaaaaaaaaaaaaaaaaaaaaaa FUNCTIONALITY
