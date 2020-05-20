@@ -1,0 +1,29 @@
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">home</th>
+        <th scope="col">away</th>
+        <th scope="col">MS1</th>
+        <th scope="col">MSX </th>
+        <th scope="col">MS2 </th>
+        <th scope="col">1.5 ALT</th>
+        <th scope="col">1.5 UST</th>
+        <th scope="col">2.5 ALT</th>
+        <th scope="col">2.5 UST</th>
+     
+      </tr>
+    </thead>
+    <tbody>
+    {% for match in matches %}
+      <tr> 
+          <td>{{match['t1name']}}</td>
+          <td>{{ match['t2name'] }}</td>
+          <td>{{  match['mbn']}}</td>
+          {% for bet in match['bets'] %}
+            <td>{{bet['odd']}}</td>
+          {% endfor %}
+      </tr>
+    {% endfor %}
+     
+    </tbody>
+  </table>

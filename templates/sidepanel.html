@@ -1,0 +1,33 @@
+
+<h3>Your balance has {{ balance }} TL</h3>
+<p>You have selected {{ session.selected|length }} bet{{ 's' if session.selected|length > 1 }}.</p>
+<form method="POST" action="/play_bet">
+    <div class="container">
+        <ul class="list-group">
+            {% for bet in session.selected %}
+            <a href="/remove_selected_bet?bet={{ loop.index0 }}"> <!--Change this?-->
+                <li class="list-group-item">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td>{{ bet.team1 }}:{{ bet.team2 }}</td>
+                            <td>{{ bet.date }}</td>
+                            <td>{{ bet.type }}</td>
+                            <td>{{ bet.odd }}</td>
+                        </tr>
+                        
+                    </table>
+    
+                </li>
+            </a>
+
+            {% endfor %}
+        </ul>
+    </div>
+</form>
+<div class="form-group" style="margin-top: 2em;">
+    <label>Enter yout stake (TL) to continue </label>
+    <input class="form-control" type="number" name="stake" placeholder="stake" style="width: 100%;"> <!--Use forms instead!-->
+</div>
+<div class="form-group">
+    <input class="btn btn-primary" style="width: 100%;" type="submit" name="playbet" value="Play Bet">
+</div>
