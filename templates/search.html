@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+    <form method="POST">
+        {% if username == none %}
+            <label>Search for users</label>
+        {% else %}
+            <label>Displaying users with "{{ username }}"</label>
+        {% endif %}
+        
+        <div class="row">
+            <div class="container col-md-10" style="margin: 0;">
+                <input class="form-control" type="text" name="username" placeholder="">
+            </div>
+            <div class="container col-md-2" style="margin: 0;">
+                <input class="form-control" type="submit" name="search" value="Search">
+            </div>
+        </div>
+    </form>
+
+{% if users != none %}
+    <div class="container content-section">
+        {% for user in users %}
+            <div class="alert content-section">
+                <div class="row">
+                    <div class="col-sm-6">
+                            <a href="/user/{{ user.username }}" class="btn">
+                                <h4>{{ user.username }}</h4>
+                            </a>
+                    </div>
+                    
+                
+                    <div class="col-sm-3"><h5>Followers: {{ user.followers }}</h5></div>
+                    <div class="col-sm-3"><h5>Following: {{ user.following }}</h5></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+{% endblock %}

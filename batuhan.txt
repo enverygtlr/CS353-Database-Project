@@ -1,0 +1,153 @@
+#@app.route('/projectplaybet')
+@app.route('/playbetApp')
+def play_bet(list_bets = [{'team1':'fenerbahce', 'team2':'bursa', 'date':'2019-02-19 00:00:00', 'type':'1.5 ALT', 'odd':4.52}], user_id = '1', stake = '10', shared='0'):
+    #get the bets from list_bets
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    #example list_bets = [{'team1':'FB', 'team2':'BJK', 'date':'May 3 2020', 'type':'MS1', 'odd':3.1}]
+    #get current time 
+    currentdate = datetime.datetime.now()
+    #create our betslip
+    cur.execute("insert into betslip values(default , %s ,%s , %s , %s, 1.0  ) " , [user_id , stake, shared , currentdate  ] )
+    cur.execute("select betslip_id from betslip  where total_odd = 1.0 ")
+    betslip_id = cur.fetchall()
+    betslip_length = len(list_bets)
+    for i in range(betslip_length):
+        team1 = list_bets[i]["team1"]
+        team2 = list_bets[i]["team2"]
+        date = list_bets[i]["date"]
+        match_type = list_bets[i]["type"]
+        cur.execute("select team_id from team where name = %s " , [team1])
+        team1_id = cur.fetchall()
+        cur.execute("select team_id from team where name = %s " , [team2])
+        team2_id = cur.fetchall()
+        cur.execute("select bet_id from bet natural join match where home_team_id = %s and away_team_id = %s and match.match_date = %s and bet_type = %s" , [team1_id[0]["team_id"] , team2_id[0]["team_id"] , date , match_type ])
+        bet_id = cur.fetchall()
+        selectBet(bet_id[0]["bet_id"] , betslip_id[0]["betslip_id"])
+    
+    playbet(betslip_id[0]["betslip_id"])
+
+    con.commit()
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+@app.route('/getUserBalance')
+def get_user_balance(user_id = '1'):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select balance from player where id  = %s " , [user_id])
+    balance = cur.fetchall()
+    print(balance[0]["balance"])
+    con.commit()
+    form = NameForm()
+    #return balance[0][0]
+    return render_template('base.html', form = form)
+
+@app.route('/get_all_followers')
+def get_all_followers(user_id = '2'):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select follower_id , s_name from userfollows , suser where followee_id = %s and follower_id = id " , [user_id])
+    follower_table = cur.fetchall()
+    print(follower_table)
+    #return follower_table 
+    con.commit()
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+@app.route('/get_all_followee')
+def get_all_followee(user_id = '1'):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select followee_id , s_name from userfollows , suser where follower_id = %s and followee_id = id " , [user_id])
+    follower_table = cur.fetchall()
+    print(follower_table)
+    #return followee_table 
+    con.commit()
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+@app.route('/get_all_betslips')
+def get_all_betslips(user_id):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select betslip_id from betslip , suser where creator_user_id = id and id = %s " , [user_id])
+    betslip_id_list = cur.fetchall()
+    for i in range(len(betslip_id_list)):
+        cur.execute("select ")
+    con.commit()
+    #return 'list bets'
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+@app.route('/update_shared_status')
+def update_shared_status(betslip_id = '4'):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("update betslip set shared = 1  where  betslip_id = %s " , [betslip_id])
+    cur.execute("select creator_user_id from betslip  where betslip_id = %s ", [betslip_id])
+    user_id = cur.fetchall()
+    currentdate = datetime.datetime.now()
+    print(betslip_id)
+    print(user_id[0]["creator_user_id"])
+    print(currentdate)
+    cur.execute("insert into post values(default , 0, %s , %s , 0 , %s  )" , [betslip_id , user_id[0]["creator_user_id"] ,currentdate ])
+    con.commit()
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+@app.route('/editor_suggests') 
+def editor_suggests(editor_id = '1' , bet_id = "4" , comment = "cok iyi bet" , trust = '20'):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    #get the match id 
+    cur.execute("select match_id , bet_id from bet natural join editor_suggests where user_id = %s   " , [editor_id])
+    matchandbets = cur.fetchall()
+    cur.execute("select match_id  from bet  where bet_id = %s " , [bet_id])
+    match_id = cur.fetchall()
+    cur.execute("select * from editor_suggests natural join match where  user_id = %s and match_id = %s " , [ editor_id,match_id[0]["match_id"]])
+    similiarsuggests = cur.fetchall()
+    if len(similiarsuggests) == 0:
+        cur.execute("insert into editor_suggests values(%s , %s , %s , %s ) ", [bet_id , editor_id , trust, comment])
+    else:
+        print("you already suggested one bet from the match ")
+    con.commit()
+    #no return value 
+    form = NameForm()
+    return render_template('base.html', form = form)
+
+
+@app.route('/search_by_username') 
+def search_by_username(username = "ahmet3"):
+    con = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select s_name, id , no_of_followers  from player natural join suser where s_name = %s " , [username])
+    players_data = cur.fetchall()
+    cur.execute("select s_name, id , no_of_followers  from editor natural join suser where s_name = %s ", [username])
+    editors_data = cur.fetchall()
+    con.commit()
+    form = NameForm()
+    print(users_data)
+    print(editors_data)
+    #return players_data + editors_data
+    return render_template('base.html', form = form)
+
+@app.route('/follow_user') 
+def follow_user(user_id = '1', requested_user_id = '2'):
+    on = connectToDB()
+    cur = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cur.execute("select * from userfollows where  follower_id = %s and followee_id = %s ", [user_id , requested_user_id])
+    data = cur.fetchall()
+    print(data)
+    if len(data) == 0:
+        cur.execute("insert into values( %s , %s )" , [user_id, requested_user_id])
+        #yarin type a gore no_of_followers update et 
+        cur.execute("update set where id ")
+        #return true
+    else:
+        #return false already followed 
+        print("muzo")
+    con.commit()
+    form = NameForm()
+    return render_template('base.html', form = form)
+    #return True or False

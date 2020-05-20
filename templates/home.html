@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block table %}
+
+
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">home_id</th>
+        <th scope="col">away_id</th>
+        <th scope="col">league_id</th>
+        <th scope="col">match_date</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for match in matches %}
+
+      <tr>
+        <th scope="row"> {{ match[match_id] }}</th>
+        <td>{{match['home_team_id']}}</td>
+        <td>{{ match['away_team_id'] }}</td>
+        <td>{{match['league_id']}}</td>
+        <td>{{ match['match_date'] }}</td>
+      </tr>
+    {% endfor %}
+     
+    </tbody>
+  </table>
+{% endblock %}

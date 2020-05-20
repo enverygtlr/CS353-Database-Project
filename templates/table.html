@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+{%include 'sidebar.html' %}
+<table class="table">
+    <tr>
+        <th>Home Team</th>
+        <th>Opponent Team</th>
+        <th>Match Date</th>
+        {% for title in titles %}
+            <th>{{ title }}</th>
+        {% endfor %}
+    </tr>
+    {% for match in matches %}
+        <tr>
+            <td>{{ match.team1 }}</td>
+            <td>{{ match.team2 }}</td>`
+            <td>{{ match.date }}</td>
+            {% for odd in match.odds %}
+                <td>{{ odd }}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+
+
+
+{% endblock content %}
