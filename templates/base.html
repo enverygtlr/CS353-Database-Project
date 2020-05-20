@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% block styles %}
-        <!-- Bootstrap CSS -->
+    
+        <!-- {% block styles %} Bootstrap CSS      {% endblock %}-->
         {{ bootstrap.load_css() }}
-    {% endblock %}
+
 
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
 
@@ -49,11 +49,11 @@
     <main role="main" class="container">
         <div class="row">
           <div class="col-md-8">
-            
+            {% block table %}
+            {% endblock table %}
             {% block content %}{% endblock %}
           </div>
-    {% block table %}
-    {% endblock %}
+    
     {% block scripts %}
         <!-- Optional JavaScript -->
         {{ bootstrap.load_js() }}

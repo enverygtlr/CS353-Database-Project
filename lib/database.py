@@ -22,6 +22,7 @@ def connectToPostgres():
 #        False if it is an insert
 #
 
+
 def execute(input_query, conn, select=True, args=None):
 	print ("in execute query")
 	cur = conn.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -36,6 +37,7 @@ def execute(input_query, conn, select=True, args=None):
 			results = cur.fetchall()
 		conn.commit()   # BP5  commit and rollback frequently
 	except Exception as e:
+		print("failed query", sql)
 		conn.rollback()
 		print(type(e))
 		print(e)
@@ -46,16 +48,48 @@ def all_matches():
 	conn = connectToPostgres()
 	if conn == None:
 		return None
-	query_string = "select * from view natural join hepsi;"
+	query_string = "select match_id, mbn, bet_type, odd, t1name, t2name from currentbetview;"
 	maclar = execute(query_string, conn, select=True)
+	conn.close()
 	return maclar
+
+def get_username(email):
+	conn = connectToPostgres()
+	if conn == None:
+		return None
+	query_string = "select s_name from suser where email = %s;"
+	name = execute(query_string, conn, select=True, args= ( [email]  ))
+	conn.close()
+	return name
 
 def login_check(email, password):
 	conn = connectToPostgres()
 	if conn == None:
 		return None
-	#query_string = ""
-	#execute(query_string, conn, select=True, args= ([email, password]))
+	query_string = "select exists(select from suser where email = %s and s_password = %s);"
+	exists = execute(query_string, conn, select=True, args= ([email, password]))
+	conn.close()
+	return exists
+
+def create_user(name, password, email, s_type='player'): # for now insert player type only
+	conn = connectToPostgres()
+	if conn == None:
+		return None
+	
+	query_string = "insert into suser(s_name, s_password, email, s_type) values(%s, %s, %s, %s);"
+	# TODO
+	# add a query to insert into player table as well
+	execute(query_string, conn, select=False, args=([name, password, email, s_type]))
+	conn.close()
+def register_check(email):
+	conn = connectToPostgres()
+	if conn == None:
+		return None
+	query_string = "select exists(select from suser where email = %s);"
+	exists = execute(query_string, conn, select=True, args= ([email]))
+	conn.close()
+	return exists
+
 
 def play_bet(list_bets = [{'team1':'fenerbahce', 'team2':'bursa', 'date':'2019-02-19 00:00:00', 'type':'1.5 ALT', 'odd':4.52}], user_id = '1', stake = '10', shared='0'):
 	# Check if the connection is succesful

@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 {% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
 
 
 {% block content %}
+    {{ render_messages() }}
+
     <div class="content-section">
         <legend class="border-bottom mb-4">Login</legend>
 

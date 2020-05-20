@@ -493,14 +493,8 @@ values((select bet_id from (Bet natural join Match) where bet_type = '1.5 UST' a
    10,
    'oynayin');
 
-    match_id | home_team_id | away_team_id | league_id |     match_date      | home_score | away_score | team_id | league_id |    name     | standing | point | team_id | league_id |    name    | standing | point 
-----------+--------------+--------------+-----------+---------------------+------------+------------+---------+-----------+-------------+----------+-------+---------+-----------+------------+----------+-------
-        1 |            1 |            5 |         1 | 2019-02-19 00:00:00 |          0 |          0 |       1 |         1 | fenerbahce  |       10 |     9 |       5 |         1 | bursa      |        4 |     6
-        2 |            2 |            5 |         1 | 2019-02-19 00:00:00 |          0 |          0 |       2 |         1 | galatasaray |        4 |     6 |       5 |         1 | bursa      |        4 |     6
-        3 |            3 |            4 |         1 | 2019-02-19 00:00:00 |          0 |          0 |       3 |         1 | trabzon     |        5 |     5 |       4 |         1 | besiktas   |        4 |    14
-        4 |            3 |            1 |         1 | 2019-02-19 00:00:00 |          0 |          0 |       3 |         1 | trabzon     |        5 |     5 |       1 |         1 | fenerbahce |       10 |     9
-        5 |            2 |            1 |         1 | 2020-02-19 00:00:00 |          0 |          0 |       2 |         1 | galatasaray |        4 |     6 |       1 |         1 | fenerbahce |       10 |     9
-        6 |            6 |            7 |         2 | 2020-02-19 00:00:00 |          0 |          0 |       6 |         2 | goztepe     |       10 |     9 |       7 |         2 | altay      |        4 |     6
-        7 |           10 |            8 |         2 | 2020-02-19 00:00:00 |          0 |          0 |      10 |         2 | altinordu   |        4 |     6 |       8 |         2 | karsiyaka  |        5 |     5
 
-        where home_team_id = t1.team_id and away_team_id = t2.team_id;
+-- create view maclar as 
+--     (select t1.name as  home_team, t2.name as away_team, match_date, match_id 
+--     from match, team t1, team t2
+--     where home_team_id = t1.team_id and away_team_id = t2.team_id ); 
