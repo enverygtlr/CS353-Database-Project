@@ -662,8 +662,8 @@ def follow_user(user_id = '2', requested_user_id = '10'):
 
 def add_comment_to_post(user_id= '1', post_id = '3', comments = ''):
     conn = connectToPostgres()
-    execute("insert into comment values(default , %s,  %s  , %s)" , conn , select=False, args=([post_id, user_id, comments]))
-
+    result = execute("insert into comment values(default , %s,  %s  , %s)" , conn , select=False, args=([post_id, user_id, comments]))
+    return result
 def like_post(user_id ='1', post_id = '3'):
     conn = connectToPostgres()
     likes = execute("select * from postlikes where user_id = %s and post_id = %s " , conn , select=True ,  args=([user_id , post_id]))

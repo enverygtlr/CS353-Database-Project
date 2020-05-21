@@ -212,14 +212,28 @@ def add_selected_bet(): # row, col
 
     if selected_match is None: redirect('/') # this should not happen
 
-    # TODO: Testfor bet already added and 
-    # already has a bet in the same row
-
+ 
     if validate_addition(selected, row, col, matches):
         return 'hmm thsis needs validation!'
-
-    selected.append(selected_match)
+    
+    flag = False
+    # Check if the clicked match is in the betslip
+    for s in session['selected']:
+            if selected_match['match_id'] == s['match_id']:
+                flag = True
+                swap = s
+    # Replace the existing bet with the new one
+    if flag:
+        for i, item in enumerate(selected):
+            if item == swap:
+                selected[i] = selected_match
+    # If it's a new match add it to selected list
+    else:
+        selected.append(selected_match)
+    
+    # update the selected bets in the sesion
     session['selected'] = selected
+    
 
     return redirect_last()  
 

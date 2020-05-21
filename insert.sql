@@ -179,6 +179,71 @@ values(
     where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 2')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Federer' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
@@ -238,6 +303,71 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 2')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    2.51,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    3.4,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'andy roddick' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
@@ -264,7 +394,22 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 1')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'MS 2',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 1')
+);
 insert into Bet(match_id, mbn, bet_type, cancelled)
 values(
     (select match_id from Match , Team as t1, Team as t2 
@@ -274,6 +419,71 @@ values(
     0
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.2,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    41.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'MS 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'Serena williams' and t2.name = 'Nadal' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 1')
+);
 insert into Odd(odd, odd_timestamp , bet_id)
 values(
     4.52,
@@ -340,11 +550,139 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 UST',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 UST')
+);
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.4,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 UST',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.4,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    12.4,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 30 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.9,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 30 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 30 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.9,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 30 2')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 60 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.9,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 60 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 60 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.9,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 60 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
-    (select team_id from Team where name = 'besiktasb'),
+    (select team_id from Team where name = 'fenerbacheb'),
     (select team_id from Team where name = 'efespilsen'),
     (select league_id from League where league_name = 'europe'),
     '2019-02-19',
@@ -354,7 +692,7 @@ values(
 insert into Bet(match_id, mbn, bet_type, cancelled)
 values(
     (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
     5,
     'MS 1',
     0
@@ -365,13 +703,13 @@ values(
     4.52,
     '2019-03-12 22:01:25',
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 1')
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 1')
 );
 
 insert into Bet(match_id, mbn, bet_type, cancelled)
 values(
     (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
     5,
     'MS X',
     0
@@ -382,10 +720,75 @@ values(
     4.52,
     '2019-03-12 22:01:25',
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'besiktasb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 UST',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 ALT')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 UST',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 UST')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 ALT')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'fenerbahceb'),
@@ -428,7 +831,135 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 UST',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 UST')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 UST',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahceb' and t2.name = 'efespilsen' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'cskamoscow'),
@@ -472,8 +1003,134 @@ values(
     where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 UST',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 ALT',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 UST',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'cskamoscow' and t2.name = 'olympiakos' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'galatasaray'),
@@ -534,7 +1191,70 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 UST',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '200.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '200.5 ALT')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 UST',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 UST')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    '160.5 ALT',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    4.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'fenerbahce' and t2.name = 'bursa' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '160.5 ALT')
+);
 
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
@@ -649,7 +1369,70 @@ values(
     where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'ALT')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'trabzon' and t2.name = 'besiktas' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'trabzon'),
@@ -737,7 +1520,70 @@ values(
     where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS 2')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'goztepe'),
@@ -790,7 +1636,72 @@ values(
     where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = '1.5 UST')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'altinordu'),
@@ -1010,9 +1921,72 @@ values(
     1.8,
     '2020-03-11 22:10:25',
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'altinordu' and t2.name = 'adanademirspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
 );
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'altinordu' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'adanademirspor'),
@@ -1123,7 +2097,70 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'malatyaspor'),
@@ -1232,10 +2269,73 @@ values(
     1.4,
     '2020-03-11 22:10:25',
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'malatyaspor' and t2.name = 'adanademirspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
 
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'malatyaspor' and t2.name = 'basaksehir' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'samsunspor'),
@@ -1346,7 +2446,70 @@ values(
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
 );
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
+);
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'samsunspor' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'kahramanmaras'),
@@ -1455,9 +2618,72 @@ values(
     1.4,
     '2020-03-11 22:10:25',
     (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'kahramanmaras' and t2.name = 'adanademirspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'MS X')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 1',
+    0
 );
 
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 1 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 1 2')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 1',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 1')
+);
+insert into Bet(match_id, mbn, bet_type, cancelled)
+values(
+    (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id),
+    5,
+    'H 2 2',
+    0
+);
+
+insert into Odd(odd, odd_timestamp , bet_id)
+values(
+    1.52,
+    '2019-03-12 22:01:25',
+    (select bet_id from Bet where match_id = (select match_id from Match , Team as t1, Team as t2 
+    where t1.name = 'kahramanmaras' and t2.name = 'inegolspor' and home_team_id = t1.team_id and away_team_id = t2.team_id) and bet_type = 'H 2 2')
+);
 insert into Match(home_team_id, away_team_id, league_id, match_date, home_score, away_score)
 values(
     (select team_id from Team where name = 'kahramanmaras'),
@@ -1717,7 +2943,7 @@ values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_n
 
 
 
-/*  Post, Comment, user_follows, post_like 
+/*  Post, Comment, user_follows, post_like */
     
 insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
 values(0, 
@@ -1740,9 +2966,9 @@ insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_dat
 values(0, 
 (select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet6' and betslip_date = '2017-12-21 10:32:23'),
 (select id from suser where s_name = 'ahmet6'), 0, '2017-12-21 10:32:23s');
-*/
 
-/*comment
+
+/*comment*/
 insert into Comment(post_id, context)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
 'This is a comment');
@@ -1765,7 +2991,7 @@ values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6'
 ':)');
 
 
-/*user follows
+/*user follows*/
 insert into UserFollows(follower_id, followee_id)
 values((select id from suser where s_name = 'ahmet4'),(select id from suser where s_name = 'ahmet3'));
 
@@ -1778,7 +3004,7 @@ values((select id from suser where s_name = 'admin1'),(select id from suser wher
 insert into UserFollows(follower_id, followee_id)
 values((select id from suser where s_name = 'admin2'),(select id from suser where s_name = 'ahmet3'));
 
-/*postlike
+/*postlike*/
 
 insert into PostLikes(post_id, user_id)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
@@ -1788,7 +3014,7 @@ insert into PostLikes(post_id, user_id)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
 (select id from suser where s_name = 'admin2'));
 
-/*editor suggests
+/*editor suggests*/
 insert into Editor_Suggests(bet_id, user_id, trust, shared_content)
 values((select bet_id from (Bet natural join Match) where bet_type = 'MS 2' and match_id =(select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id)),
@@ -1809,4 +3035,3 @@ values((select bet_id from (Bet natural join Match) where bet_type = 'MS 1' and 
    (select id from suser where s_name = 'editorfaruk'),
    10,
    'kesin oynayin mukemmel adana derbisi');
-
