@@ -116,11 +116,7 @@ def profile():
     posts = db.get_user_betslips(user_id, True)
     # return str(posts)
 
-    if request.method == 'POST' and 'loopvalue' in request.form:
-        x = request.form['loopvalue']
-    
-        print('asdlfjskdfjksdfjksdfjksdfjksdf', x)
-
+    # return str((posts))
 
     return render_template('profilepage.html', 
                             loggedin=loggedin,
@@ -188,6 +184,9 @@ def user_page(pname):
 
     if info is None:
         return redirect('/')
+
+    if pname == username:
+        return redirect('/profile')
     
     posts = db.get_user_betslips(user_id, True)
     # return str(posts)
@@ -305,7 +304,6 @@ def share_betslip():
     loggedin = session.get('loggedin')
     user_id = session.get('user_id')
     post_id = request.args.get('post_id')
-    context = request.args.get('context')
 
     betslip_id = request.args.get('betslip_id')
     shared = request.args.get('shared')
@@ -313,6 +311,24 @@ def share_betslip():
     if betslip_id is not None and user_id is not None and shared is not None:
         db.create_post(user_id, betslip_id)
 
+
+    return redirect_last()
+
+
+@app.route('/follow_user', methods=["GET", "POST"])
+def follow_user():
+    loggedin = session.get('loggedin')
+    user_id = session.get('user_id')
+    post_id = request.args.get('post_id')
+
+    betslip_id = request.args.get('betslip_id')
+    requested_user_id = request.args.get('user')
+
+    if None not in {betslip_id, user_id, requested_user_id}:
+        success = db.follow_user(user_id, requested_user_id)
+
+        if success is False:
+            db.unfollow_user(user_id, requested_user_id)
 
     return redirect_last()
 

@@ -38,7 +38,7 @@ CREATE TABLE Betslip (
            stake             NUMERIC(10,2) NOT NULL,
            shared            INT NOT NULL,
            betslip_date      TIMESTAMP NOT NULL,
-           total_odd         numeric(6,2));
+           total_odd         numeric(6,2) DEFAULT 1);
 CREATE TABLE SportBranch (
            branch_name         VARCHAR(30) PRIMARY KEY);
 CREATE TABLE League (

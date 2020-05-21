@@ -48,12 +48,13 @@
         <div class="content-section">
             <div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-muted text-right">{{ post.betslip_date }}</p>
-                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><p class="text-muted text-left"><p class="text-muted text-center h2">{{ post.stake|int }} TL -> {{ (post.total_odd * post.stake)|int }} TL </p></p></div>
+                    <div class="col-md-4"><p class="text-muted text-right">{{ post.betslip_date }}</p></div>
                 </div>
 
-                <p class="text-muted text-center">Won {{ post.stake|int }} TL -> {{ (post.total_odd * post.stake)|int }} TL </p>
+
+                
 
 
                 <table class="table" style="width: 100%;">
@@ -91,7 +92,8 @@
         </div>
     {% endfor %}
     {% if posts|length == 0 %}
-        <h4>There are no shared posts</h4>
+        <br>
+        <h4 class="text-center">There are no shared posts :(</h4>
     {% endif %}
     
 </div>
