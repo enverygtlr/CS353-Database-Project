@@ -22,3 +22,4 @@ class PlayBetForm(FlaskForm):
 
 class SearchForm(FlaskForm):
     search = TextField('search', validators=[DataRequired()])
+

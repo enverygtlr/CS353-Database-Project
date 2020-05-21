@@ -100,10 +100,35 @@ def register_page():
                             form=form,
                             username=username)
 
-@app.route('/profile')
-def profile_page():
-    return ''
+@app.route('/profile', methods=["GET", "POST"])
+def profile():
+    loggedin = session.get('loggedin')
+    username = session.get('username')
+    user_type = session.get('user_type')
+    user_id = session.get('user_id')
 
+    info = db.user_info_by_name(username)
+    
+
+    if info is None:
+        return redirect('/')
+    
+    posts = db.get_user_betslips(user_id, True)
+    # return str(posts)
+
+    if request.method == 'POST' and 'loopvalue' in request.form:
+        x = request.form['loopvalue']
+    
+        print('asdlfjskdfjksdfjksdfjksdfjksdf', x)
+
+
+    return render_template('profile.html', 
+                            loggedin=loggedin,
+                            username=username,
+                            user_type=user_type,
+                            info=info,
+                            posts=posts,
+                            )
 @app.route('/feed')
 def feed_page():
     loggedin = session.get('loggedin')

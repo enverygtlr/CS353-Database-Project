@@ -2856,7 +2856,10 @@ insert into editor(id, salary, success_rate, successful_bets, total_bets, no_of_
 values((select id from suser where s_name = 'editorahmad'), 4000.0, 0, 0,0,0);
 
 /*
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82d90f36e1e8b81e8bf469263f8eaa667b792bc1
 insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
 values(DEFAULT, (select id from suser where s_name = 'ahmet2'),10, 1,'1999-02-21 10:32:23');
 
