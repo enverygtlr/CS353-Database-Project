@@ -121,7 +121,18 @@ def feed_page():
 
 @app.route('/suggestions')
 def suggestions_page():
-    return ''
+    loggedin = session.get('loggedin')
+    username = session.get('username')
+    posts = None
+
+    if loggedin is not None:
+        user_id = session.get('user_id')
+        posts = db.get_feed_posts(user_id)
+        
+    return render_template('feedpage.html', 
+                            loggedin=loggedin,
+                            posts=posts,
+                            username=username)
 
 @app.route('/search', methods=["GET", "POST"])
 def search_page():

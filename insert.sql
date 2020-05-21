@@ -2854,8 +2854,8 @@ insert into suser(id, s_name, s_password, email, s_type)
 values(DEFAULT, 'editorahmad' ,'muzafsert' ,'editor@ahmaad' ,'editor');
 insert into editor(id, salary, success_rate, successful_bets, total_bets, no_of_followers)
 values((select id from suser where s_name = 'editorahmad'), 4000.0, 0, 0,0,0);
-  
 
+/*
 
 insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
 values(DEFAULT, (select id from suser where s_name = 'ahmet2'),10, 1,'1999-02-21 10:32:23');
@@ -2943,7 +2943,7 @@ values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_n
 
 
 
-/*  Post, Comment, user_follows, post_like */
+
     
 insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
 values(0, 
@@ -2968,7 +2968,7 @@ values(0,
 (select id from suser where s_name = 'ahmet6'), 0, '2017-12-21 10:32:23s');
 
 
-/*comment*/
+
 insert into Comment(post_id, context)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
 'This is a comment');
@@ -2991,7 +2991,7 @@ values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6'
 ':)');
 
 
-/*user follows*/
+
 insert into UserFollows(follower_id, followee_id)
 values((select id from suser where s_name = 'ahmet4'),(select id from suser where s_name = 'ahmet3'));
 
@@ -3004,7 +3004,7 @@ values((select id from suser where s_name = 'admin1'),(select id from suser wher
 insert into UserFollows(follower_id, followee_id)
 values((select id from suser where s_name = 'admin2'),(select id from suser where s_name = 'ahmet3'));
 
-/*postlike*/
+
 
 insert into PostLikes(post_id, user_id)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
@@ -3014,7 +3014,7 @@ insert into PostLikes(post_id, user_id)
 values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
 (select id from suser where s_name = 'admin2'));
 
-/*editor suggests*/
+
 insert into Editor_Suggests(bet_id, user_id, trust, shared_content)
 values((select bet_id from (Bet natural join Match) where bet_type = 'MS 2' and match_id =(select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id)),
@@ -3035,3 +3035,5 @@ values((select bet_id from (Bet natural join Match) where bet_type = 'MS 1' and 
    (select id from suser where s_name = 'editorfaruk'),
    10,
    'kesin oynayin mukemmel adana derbisi');
+
+*/
