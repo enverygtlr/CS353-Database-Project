@@ -19,95 +19,85 @@ def home_page():
     selected = session.get('selected')
     user_id = session.get('user_id')
     username = session.get('username')
-    balance = 100 # db.get_user_balance(session['user_id']) if session.get('user_id') is not None else None
-    
+    balance = None 
+
+    if loggedin is not None:
+        balance = db.user_info(session['user_id'])
+
     form = PlayBetForm()
-    flash(str(selected), 'info')
 
     if form.validate_on_submit() and loggedin is not None:
         stake = form.stake.data
         count = len(selected)
 
-        # validate selected bets ????
+        success, message = db.play_bet(selected, user_id, stake, 0)
 
-        validated = stake > 0 and stake < balance
-
-        # return str(selected)
-        
-
-        if validated:
-            flash('Bet is played successfully!')
+        if success:
             session['selected'] = []
-
-            # update balance
-            # update user bets
-            
-            success, message = db.play_bet(selected, user_id, stake, 0)
-
-            if success:
-                return redirect('/')
-
-            flash(message, 'error')
+            flash(message)
             return redirect('/')
         else:
-            flash('Please play with a lower stake', 'error')
-            return redirect_last()        
+            flash(message, 'error')
+            return redirect('/')  
 
     return render_template('homepage.html', 
                             loggedin=loggedin,
                             matches=matches,
                             selected=selected,
                             balance=balance,
-                            form=form)
+                            form=form,
+                            username=username)
 
 @app.route('/login', methods=["GET", "POST"])
 def login_page():
     loggedin = session.get('loggedin')
+    username = session.get('username')
 
     if loggedin is not None: return redirect('/')
 
     form = LoginForm()
 
     if form.validate_on_submit():
-        validated = db.login_check(form.email.data, form.password.data)
+        validated, dictionary = db.login_check(form.username.data, form.password.data)
 
-        if validated:
-            username, user_id = db.get_name_id(form.email.data)
-            
-            session['username'] = username
-            session['user_id']  = user_id
+        if validated:            
+            session['username'] = dictionary['username']
+            session['user_id']  = dictionary['user_id']
+            session['type'] = dictionary['type']
             session['loggedin'] = True
             session['selected'] = []
 
             return redirect('/') # redirect to home
         else:
-            flash('Worng username or password', 'error')
+            flash('Wrong username or password', 'error')
 
     return render_template('loginpage.html', 
                             loggedin=None,
-                            form=form)
+                            form=form,
+                            username=username)
 
 @app.route('/register', methods=["GET", "POST"])
 def register_page():
     loggedin = session.get('loggedin')
+    username = session.get('username')
 
     if loggedin: flash('Please log out before registering')
     
     form = RegistrationForm()
 
     if form.validate_on_submit():
-        validated = not db.register_check(form.email.data)
+        validated, message = db.user_register(form.fullname.data, form.email.data, form.password.data, form.typee.data)
 
         if validated:
-            flash('Account created, please login')
-            db.create_user(form.fullname.data, form.password.data, form.email.data)
+            flash('Account created, please login', 'message')
         else:
-            flash('Cannot create account, email already registered', 'error')
+            flash(message, 'error')
         
 
     return render_template('registerpage.html', 
                             loggedin=loggedin,
-                            form=form)
+                            form=form,
+                            username=username)
 
 @app.route('/profile')
 def profile_page():
@@ -116,6 +106,7 @@ def profile_page():
 @app.route('/feed')
 def feed_page():
     loggedin = session.get('loggedin')
+    username = session.get('username')
     posts = None
 
     if loggedin is not None:
@@ -124,7 +115,8 @@ def feed_page():
         
     return render_template('feedpage.html', 
                             loggedin=loggedin,
-                            posts=posts)
+                            posts=posts,
+                            username=username)
 
 @app.route('/suggestions')
 def suggestions_page():
@@ -133,6 +125,7 @@ def suggestions_page():
 @app.route('/search', methods=["GET", "POST"])
 def search_page():
     loggedin = session.get('loggedin')
+    username = session.get('username')
     form = SearchForm()
     users = None
     search_key = None
@@ -145,7 +138,8 @@ def search_page():
                             loggedin=loggedin,
                             form=form,
                             users=users,
-                            search_key=search_key)
+                            search_key=search_key,
+                            username=username)
 
 # end of pages 
 # start of functions
@@ -153,7 +147,7 @@ def search_page():
 @app.route('/logout')
 def logout_page():
     session.clear()
-    return redirect_last()
+    return redirect('/')
 
 @app.route('/remove_selected_bet', methods=["GET", "POST"])
 def remove_selected_bet(): # bet
@@ -203,5 +197,33 @@ def add_selected_bet(): # row, col
     session['selected'] = selected
 
     return redirect_last()  
+
+@app.route('/add_comment', methods=["GET", "POST"])
+def add_comment():
+    loggedin = session.get('loggedin')
+    user_id = session.get('user_id')
+    post_id = request.args.get('post_id')
+    context = request.args.get('context')
+
+    if loggedin is not None and post_id is not None:
+        success = db.add_comment_to_post(user_id, int(post_id), context)
+
+        return redirect_last()
+    return redirect_last()
+
+@app.route('/like_post', methods=["GET", "POST"])
+def like_post():
+    loggedin = session.get('loggedin')
+    user_id = session.get('user_id')
+    post_id = request.args.get('post_id')
+
+    if loggedin is not None and post_id is not None:
+        success = db.like_post(user_id, post_id)
+
+        if success is False:
+            db.get_like_back(user_id, post_id)
+
+        return redirect_last()
+    return redirect_last()
 
 # end of functions

@@ -1,6 +1,7 @@
 import psycopg2
 import psycopg2.extras
 import sys
+from decimal import *
 
 from datetime import date
 import datetime
@@ -143,6 +144,7 @@ def editorLogin():
 
  """
 
+
 def get_bet_table(sportbranch="-", league="-", minDate="-"):
   #show all bets given branch, league, mindate
     '''
@@ -214,6 +216,18 @@ user info
 add money
 
 '''
+
+def user_info(userid = '10'):
+    if userid is None: return None
+
+    conn = connectToPostgres()
+    user_data = execute("select s_type from suser where id = %s " , conn , select=True , args= ([userid]))
+    if user_data[0]['s_type'] == 'player':
+        player_data = execute("select s_name , email , balance from suser natural join player where id = %s " , conn , select=True , args=([userid])) 
+        return player_data[0]['balance']
+    elif user_data[0]['s_type'] == 'editor':
+        return 'unlimited'
+    return None
 
 def findBetId(homeTeam, awayTeam, betType, matchDate):
     conn = connectToPostgres()
@@ -404,6 +418,8 @@ def get_feed_posts(user_id):
             select betslip_id, stake, total_odd, betslip_date
             from betslip where betslip_id = {post['betslip_id']};
         '''
+
+        print(post)
           
         betslip = execute(betslipQuery, conn, select=True)[0]
         betslip['bets'] = getBetsOfBetslip(post['betslip_id'])
@@ -628,9 +644,9 @@ def follow_user(user_id = '2', requested_user_id = '10'):
         return False
         print("muzo")
 
-def add_comment_to_post(user_id= '1', post_id = '3', comments = 'cavdarovskiiiii'):
+def add_comment_to_post(user_id= '1', post_id = '3', comments = ''):
     conn = connectToPostgres()
-    execute("insert into comment values(default , %s,  %s  , %s)" , conn , select=False, args=([post_id , comments , user_id]))
+    execute("insert into comment values(default , %s,  %s  , %s)" , conn , select=False, args=([post_id, user_id, comments]))
 
 def like_post(user_id ='1', post_id = '3'):
     conn = connectToPostgres()
@@ -739,7 +755,7 @@ def play_bet(list_bets = [{'team1':'fenerbahce', 'team2':'bursa', 'date':'2019-0
         bet_id = execute("select bet_id from bet natural join match where home_team_id = %s and away_team_id = %s and match.match_date = %s and bet_type = %s" , conn ,select = True ,  args=([team1_id[0]["team_id"] , team2_id[0]["team_id"] , date , match_type ]))
         selectBet(bet_id[0]["bet_id"], betslip_id[0]["betslip_id"])
     
-    total_odd = calculateTotalOdd(betslip_id[0]["betslip_id"])
+    total_odd = (Decimal(calculateTotalOdd(betslip_id[0]["betslip_id"])).quantize(Decimal('.01'), rounding=ROUND_DOWN))
     execute("update betslip set total_odd = total_odd * %s where betslip_id  = %s " , conn , select = False ,args = (total_odd , betslip_id[0]['betslip_id']))
 
     if userType == 'editor':
@@ -749,33 +765,35 @@ def play_bet(list_bets = [{'team1':'fenerbahce', 'team2':'bursa', 'date':'2019-0
     return playBet(betslip_id[0]["betslip_id"], user_id)
 
 # TODO: ALAHhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-def login_check(email, password):
-	conn = connectToPostgres()
-	if conn == None:
-		return None
-	query_string = "select exists(select from suser where email = %s and s_password = %s);"
-	exists = execute(query_string, conn, select=True, args= ([email, password]))
-	conn.close()
-	return exists[0]['exists']
-
-def get_name_id(email):
+def user_register(username, email, password, user_type='player' ):
+    #signing up an admin page 
     conn = connectToPostgres()
-    if conn == None:
-	    return None
-    query_string = "select s_name, id from suser where email = %s"
-    name = execute(query_string, conn, select=True, args= ([email]))
-    conn.close()
-    print('hello buraya bakarlar knk', name)
-    return name[0]['s_name'], name[0]['id']
+    redundant_data = execute("select id from suser where s_name = %s or email = %s " , conn , select = True , args=([username , email ]))
+    if len(redundant_data) == 0: # no data exists for username and password 
+        execute("insert into suser values(default , %s , %s ,%s , %s )" , conn , select=False , args=([username, password, email, user_type]) )
+        user_id = execute("select id from suser where s_name = %s " , conn , select = True , args =([username]))
+        if user_type == 'player':
+            execute("insert into player values(%s , 0 , 0 )" , conn , select=False , args=([user_id[0]["id"]]) )
+        elif user_type == 'editor':
+            execute("insert into editor values(%s , 4000 , 0 , 0 ,0 , 0 )" , conn , select=False , args=([user_id[0]["id"]]) )
+        elif user_type == 'admin':
+            execute("insert into admin values(%s , 4000  )" , conn , select=False , args=([user_id[0]["id"]]) )
+        return True, ''
+    else:
+        return False, "username or mail has already been taken"
 
-def register_check(email):
-	conn = connectToPostgres()
-	if conn == None:
-		return None
-	query_string = "select exists(select from suser where email = %s);"
-	exists = execute(query_string, conn, select=True, args= ([email]))
-	conn.close()
-	return exists[0]['exists']
+def login_check(username,  password):
+    conn = connectToPostgres()
+    data = execute("select * from suser where s_name = %s and s_password = %s  " , conn , select = True , args = ([username , password]) )
+    if len(data) == 0:
+        return False , None
+    else:
+        return True, {'username':data[0]['s_name'], 
+                        'user_id':data[0]['id'], 
+                        'password':data[0]['s_password'], 
+                        'email':data[0]['email'], 
+                        'type':data[0]['s_type'] }
+
 
 def calculateTotalOdd(betslip_id):
     betslipList = getBetsOfBetslip(betslip_id)
@@ -858,7 +876,7 @@ def isbetslipSuccesful(betslip_id = '1'):
 
     for i in range(len(betslip)):
         bet_id = betslip[i]["bet_id"]
-        branch_name = execute("select branch_name from bet natural join (match natural jin league) where bet_id = %s ", conn , select=True , args = ([bet_id]))
+        branch_name = execute("select branch_name from bet natural join (match natural join league) where bet_id = %s ", conn , select=True , args = ([bet_id]))
 
         print(bet_id, branch_name)
 
@@ -868,3 +886,7 @@ def isbetslipSuccesful(betslip_id = '1'):
     return True
 
 
+def get_like_back(user_id = '6' ,  post_id = '3'):
+    conn = connectToPostgres()
+    execute("delete  from postlikes where  user_id = %s and post_id = %s " , conn , select= False , args = ([user_id , post_id]))
+    execute("update post  set no_of_likes = no_of_likes - %s where post_id = %s " , conn , select=False , args =([ 1 , post_id]) )

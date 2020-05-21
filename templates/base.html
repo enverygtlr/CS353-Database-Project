@@ -35,7 +35,8 @@
                             <a class="navbar-brand mr-3 text-muted" href="/login">Login</a>
                             <a class="navbar-brand mr-3 text-muted" href="/register">Register</a>
                         {% else %}
-                            <a class="navbar-brand text-muted" href="/logout">Logout</a>
+                            
+                            <a class="navbar-brand text-muted" href="/logout">Logout {{ username }}</a>
                         {% endif %}
 
                     </div>

@@ -7,17 +7,18 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email',validators=[DataRequired()] )
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    typee =  SelectField('Type', validators=[DataRequired()], choices=[('player', 'Normal user'), ('editor', 'Editor'), ('admin', 'Admin')])
     submit = SubmitField('Sign Up')
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Email',validators=[DataRequired()])
+    username = StringField('Username',validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
 
 class PlayBetForm(FlaskForm):
-    stake = IntegerField('stake', validators=[NumberRange(1), DataRequired()])
+    stake = IntegerField('stake', validators=[NumberRange(3), DataRequired()])
 
 class SearchForm(FlaskForm):
     search = TextField('search', validators=[DataRequired()])
