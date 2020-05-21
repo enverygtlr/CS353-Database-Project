@@ -1,6 +1,6 @@
 from flask import * 
 from flask_bootstrap import Bootstrap
-import database as db
+import databasev2 as db
 from util import *
 from forms import *
 
@@ -17,9 +17,12 @@ def home_page():
     loggedin = session.get('loggedin') # True if exists else None
     matches = db.get_bet_table()
     selected = session.get('selected')
+    user_id = session.get('user_id')
+    username = session.get('username')
     balance = 100 # db.get_user_balance(session['user_id']) if session.get('user_id') is not None else None
     
     form = PlayBetForm()
+    flash(str(selected), 'info')
 
     if form.validate_on_submit() and loggedin is not None:
         stake = form.stake.data
@@ -29,12 +32,22 @@ def home_page():
 
         validated = stake > 0 and stake < balance
 
+        # return str(selected)
+        
+
         if validated:
             flash('Bet is played successfully!')
             session['selected'] = []
 
             # update balance
             # update user bets
+            
+            success, message = db.play_bet(selected, user_id, stake, 0)
+
+            if success:
+                return redirect('/')
+
+            flash(message, 'error')
             return redirect('/')
         else:
             flash('Please play with a lower stake', 'error')
@@ -102,7 +115,16 @@ def profile_page():
 
 @app.route('/feed')
 def feed_page():
-    return ''
+    loggedin = session.get('loggedin')
+    posts = None
+
+    if loggedin is not None:
+        user_id = session.get('user_id')
+        posts = db.get_feed_posts(user_id)
+        
+    return render_template('feedpage.html', 
+                            loggedin=loggedin,
+                            posts=posts)
 
 @app.route('/suggestions')
 def suggestions_page():

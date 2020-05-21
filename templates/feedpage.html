@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+{% block content %}
+    
+<div class="container">
+    {% for post in posts %}
+        <div class="content-section">
+        
+
+            <div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <a class="text-muted" href="/users/{{ post.followed_id }}">@{{post.s_name}}</a>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-muted text-right">date: {{ post.post_date }}</p>
+                    </div>
+                </div>
+
+
+                <table class="table" style="width: 100%;">
+                    <tr>
+                            <th class="text-muted">Teams</th>
+                            <th class="text-muted">Date</th>
+                            <th class="text-muted">Type</th>
+                            <th class="text-muted">Odd</th>
+                    </tr>
+                    <tr>
+                        {% for bet in post.betslip.bets %}
+                            {% set tmp = total_odds %}
+                            <td class="text-muted">{{ bet.t1name }} vs {{ bet.t2name }}</td>
+                            <td class="text-muted">{{ bet.match_date }}</td>
+                            <td class="text-muted">{{ bet.bet_type }}</td>
+                            <td class="text-muted">{{ bet.odd }}</td>
+
+                        {% endfor %}
+                    </tr>
+                </table>
+
+                <div>
+                    <p class="text-muted text-left">
+
+                    </p>
+                    {% for comment in post.comment %}
+                    <p>
+                        <!--
+                            <a class="text-muted" href="/users/{{ comment.user_id }}">@{{comment.s_name}}</a>
+                        -->
+                        <a class="text-muted">@{{comment.s_name}}</a>
+                        {{ comment.context }}
+                    </p>
+                    {% endfor %}
+                </div>
+
+               
+            </div>
+
+        
+        </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
+

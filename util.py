@@ -21,7 +21,7 @@ def convert_smatch(match):
             't1name':match['t1name'],
             't2name':match['t2name'],
             'mbn':bet['mbn'],
-            'bet_type':bet['mbn'],
+            'bet_type':bet['bet_type'],
             'cancelled':True if bet['cancelled'] != 0 else False,
             'odd':float(bet['odd']),
             'odd_timestamp':str(bet['odd_timestamp']),
