@@ -1,8 +1,9 @@
 <table class="table table-sm">
     <thead>
       <tr>
-        <th scope="col">home</th>
-        <th scope="col">away</th>
+        <th scope="col">Home Team</th>
+        <th scope="col">Away Team</th>
+        <th scope="col">Match Date</th>
         <th scope="col">MS1</th>
         <th scope="col">MSX </th>
         <th scope="col">MS2 </th>
@@ -15,12 +16,19 @@
     </thead>
     <tbody>
     {% for match in matches %}
+    {% set outer_loop = loop %}
       <tr> 
-          <td>{{match['t1name']}}</td>
-          <td>{{ match['t2name'] }}</td>
-          <td>{{  match['mbn']}}</td>
-          {% for bet in match['bets'] %}
-            <td>{{bet['odd']}}</td>
+          <td>{{ match.t1name }}</td>
+          <td>{{ match.t2name }}</td>
+          <td>{{ match.match_date }}</td>
+          <td>{{  match.mbn }}</td>
+          {% for bet in match.bets %}
+            <td>
+              <a href="/add_selected_bet?col={{ loop.index0 }}&row={{ outer_loop.index0 }}" class="btn text-info" style="padding: 0;">
+                {{ bet.odd }}
+              </a>
+            </td>
+
           {% endfor %}
       </tr>
     {% endfor %}

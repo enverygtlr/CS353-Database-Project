@@ -31,7 +31,7 @@
                     </div>
                 
                     <div class="navbar-nav">
-                        {% if loggedin != None %}
+                        {% if loggedin == None %}
                             <a class="navbar-brand mr-3 text-muted" href="/login">Login</a>
                             <a class="navbar-brand mr-3 text-muted" href="/register">Register</a>
                         {% else %}

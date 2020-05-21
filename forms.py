@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from wtforms.fields import *
+from wtforms.validators import *
 
 class RegistrationForm(FlaskForm):
     fullname = StringField('Full Name', validators= [DataRequired(), Length(min = 5)])
@@ -15,3 +15,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+class PlayBetForm(FlaskForm):
+    stake = IntegerField('stake', validators=[NumberRange(1), DataRequired()])

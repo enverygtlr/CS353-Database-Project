@@ -1,33 +1,35 @@
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
 
 <h3>Your balance has {{ balance }} TL</h3>
-<p>You have selected {{ session.selected|length }} bet{{ 's' if session.selected|length > 1 }}.</p>
-<form method="POST" action="/play_bet">
-    <div class="container">
-        <ul class="list-group">
-            {% for bet in session.selected %}
-            <a href="/remove_selected_bet?bet={{ loop.index0 }}"> <!--Change this?-->
-                <li class="list-group-item">
-                    <table style="width: 100%;">
-                        <tr>
-                            <td>{{ bet.team1 }}:{{ bet.team2 }}</td>
-                            <td>{{ bet.date }}</td>
-                            <td>{{ bet.type }}</td>
-                            <td>{{ bet.odd }}</td>
-                        </tr>
-                        
-                    </table>
-    
-                </li>
-            </a>
+<p>You have selected {{ selected|length }} bet{{ 's' if selected|length > 1 }}.</p>
+<form method="POST" action="/">
+    {{ form.csrf_token }}
+    <div class="container-fluid">
+        <table class="table" style="width: 100%;">
+            {% for bet in selected %}
+            <div class="card">
+                <a href="/remove_selected_bet?bet={{ loop.index0 }}" class="btn" style="padding: 0;">
+                    <div class="row text-info">
+                        <div class="container-fluid col-sm-4">{{ bet.t1name }} </bt> {{ bet.t2name }}</div>
+                        <div class="container-fluid col-sm-3">{{ bet.bet_type }}</div>
+                        <div class="container-fluid col-sm-3">{{ bet.odd }}</div>
+                    </div>
+                </a>
+            </div>
 
             {% endfor %}
-        </ul>
+        </table>
     </div>
+    <div class="form-group" style="margin-top: 2em;">
+        <label>Enter yout stake (TL) to continue </label>
+        <input class="form-control" id="stake" name="stake" required type="text" value="">
+    </div>
+    {% if selected|length != 0 %}
+        <div class="form-group">
+            <input class="btn btn-primary" style="width: 100%;" type="submit" name="playbet" value="Play Bet">
+        </div>
+    {% endif %}
+    <br>
+    {{ render_messages() }}
 </form>
-<div class="form-group" style="margin-top: 2em;">
-    <label>Enter yout stake (TL) to continue </label>
-    <input class="form-control" type="number" name="stake" placeholder="stake" style="width: 100%;"> <!--Use forms instead!-->
-</div>
-<div class="form-group">
-    <input class="btn btn-primary" style="width: 100%;" type="submit" name="playbet" value="Play Bet">
-</div>

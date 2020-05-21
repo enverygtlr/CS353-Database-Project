@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+
+{% block content %}
+<div class="container">
+    <div class="content-section">
+        <legend class="border-bottom mb-12">Register</legend>
+
+        <form method="post">
+            {{ form.csrf_token }}
+            {{ render_form_row([form.fullname], col_map= {'fullname' : 'col-md-12'} ) }}
+            {{ render_form_row([form.email], col_map= {'email' : 'col-md-12'} ) }}
+            {{ render_form_row([form.password], col_map= {'password' : 'col-md-12'} ) }}
+            {{ render_form_row([form.confirm_password], col_map= {'confirm_password' : 'col-md-12'}) }}
+            {{ render_form_row([form.submit], button_size ='lg') }}
+        </form>
+        <br>
+        {{ render_messages() }}
+    </div>
+</div>
+{% endblock %}
