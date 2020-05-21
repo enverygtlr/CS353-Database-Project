@@ -10,7 +10,7 @@
     
             <form method="post" class="container-fluid">
                 {{ form.csrf_token }}
-                {{ render_form_row([form.username], col_map= {'email' : 'col-md-12'} ) }}
+                {{ render_form_row([form.username], col_map= {'username' : 'col-md-12'} ) }}
                 {{ render_form_row([form.password], col_map= {'password' : 'col-md-12'} ) }}
                 {{ render_form_row([form.submit], button_size ='lg') }}
             </form>
