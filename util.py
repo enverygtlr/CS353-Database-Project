@@ -29,3 +29,6 @@ def convert_smatch(match):
         total.append(converted)
     
     return total
+
+def validate_addition(selected, row, col, matches):
+    pass

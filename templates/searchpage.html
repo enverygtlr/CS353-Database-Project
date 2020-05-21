@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+{% block content %}
+
+<div class="container">
+    <div class="content-section">
+        <form method="POST">
+            {{ form.csrf_token }}
+            {% if search_key == None %}
+                <label>Search for users</label>
+            {% else %}
+                <label>Displaying users with "{{ search_key }}"</label>
+            {% endif %}
+            
+            <div class="row">
+                <div class="container col-md-10" style="margin: 0;">
+                    <input class="form-control" id="search" name="search" required type="text" value="">
+                </div>
+                <div class="container col-md-2" style="margin: 0;">
+                    <input class="btn btn-primary" style="width: 100%;" type="submit" name="playbet" value="Search">
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% if users != None %}
+        <div class="container content-section">
+            {% for user in users %}
+                <div class="alert content-section">
+                    <div class="row">
+                        <div class="col-sm-10">
+                                <a href="/user/{{ user.id }}" class="btn">
+                                    <h4>{{ user.s_name }}</h4>
+                                </a>
+                        </div>
+                        
+                    
+                        <div class="col-sm-2"><h6>Followers: {{ user.no_of_followers }}</h6></div>
+                        <!--
+                            <div class="col-sm-3"><h5>Following: {{ user.following }}</h5></div>
+                        -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+
+
+
+{% endblock %}

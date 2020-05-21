@@ -1,7 +1,7 @@
 from flask import * 
 from flask_bootstrap import Bootstrap
 import database as db
-from util import redirect_last, convert_smatch
+from util import *
 from forms import *
 
 
@@ -108,9 +108,22 @@ def feed_page():
 def suggestions_page():
     return ''
 
-@app.route('/search')
+@app.route('/search', methods=["GET", "POST"])
 def search_page():
-    return ''
+    loggedin = session.get('loggedin')
+    form = SearchForm()
+    users = None
+    search_key = None
+
+    if form.validate_on_submit(): # when actually searched
+        users = db.search_by_username(form.search.data)
+        search_key = form.search.data
+
+    return render_template('searchpage.html', 
+                            loggedin=loggedin,
+                            form=form,
+                            users=users,
+                            search_key=search_key)
 
 # end of pages 
 # start of functions
@@ -158,7 +171,11 @@ def add_selected_bet(): # row, col
 
     if selected_match is None: redirect('/') # this should not happen
 
+    # TODO: Testfor bet already added and 
+    # already has a bet in the same row
 
+    if validate_addition(selected, row, col, matches):
+        return 'hmm thsis needs validation!'
 
     selected.append(selected_match)
     session['selected'] = selected

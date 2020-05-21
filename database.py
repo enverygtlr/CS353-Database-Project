@@ -72,7 +72,6 @@ def execute(input_query, conn, select=True, args=None):
 			results = cur.fetchall()
 		conn.commit()   # BP5  commit and rollback frequently
 	except Exception as e:
-		print("failed query", sql)
 		conn.rollback()
 		print(type(e))
 		print(e)
@@ -513,9 +512,9 @@ def editor_suggests(editor_id = '1' , bet_id = "4" , comment = "cok iyi bet" , t
 
 def search_by_username(username = "ahmet3"):
     conn = connectToPostgres()
-    queryString = "select s_name, id , no_of_followers  from player natural join suser where s_name = %s "
+    queryString = "select s_name, id , no_of_followers  from player natural join suser where s_name ~ %s "
     players_data = execute(queryString , conn , select=True , args= ([username]))
-    queryString = "select s_name, id , no_of_followers  from editor natural join suser where s_name = %s "
+    queryString = "select s_name, id , no_of_followers  from editor natural join suser where s_name ~ %s "
     editors_data = execute(queryString , conn , select=True , args= ([username]))
     return players_data + editors_data
 
