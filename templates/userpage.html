@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+{% block content %}
+    
+<div class="container">
+    {% if info.s_type == 'player' %}
+        <span class="badge badge-dark">Player</span>
+    {% elif info.s_type == 'editor' %}
+        <span class="badge badge-success">Editor</span>
+    {% else %}
+        <span class="badge badge-danger">Admin</span>
+    {% endif %}
+    <div class="content-section">
+        <div class="container-fluid">
+            
+            <div class="row">
+                <div class="col-md-4 text-left">
+                    <h5>
+                        <a class="text-muted" href="/users/{{ info.s_name }}">
+                            @{{info.s_name}}
+                        </a>
+                    </h5>
+                </div>
+                <div class="col-md-4 text-center">
+                    <h5><a href="/follow_user?user={{info.id}}" class="btn badge-light">Follow</a></h5>
+                </div>
+                <div class="col-md-4 text-right">
+                    <h5 class="text-dark">
+                        Followers: {{ info.no_of_followers }}
+                    </h5>
+                    
+                </div>
+            </div>
+
+
+                
+            
+            
+        </div>
+
+    </div>
+</div>
+
+<div class="container">
+    {% for post in posts %}
+        <div class="content-section">
+            <div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p class="text-muted text-right">{{ post.betslip_date }}</p>
+                    </div>
+                </div>
+
+                <p class="text-muted text-center">Won {{ post.stake|int }} TL -> {{ (post.total_odd * post.stake)|int }} TL </p>
+
+
+                <table class="table" style="width: 100%;">
+                    <tr>
+                            <th class="text-muted">Teams</th>
+                            <th class="text-muted">Date</th>
+                            <th class="text-muted">Type</th>
+                            <th class="text-muted">Odd</th>
+                    </tr>
+                    {% for bet in post.bet %}
+                        <tr>
+                            <td class="text-muted">{{ bet.t1name }} vs {{ bet.t2name }}</td>
+                            <td class="text-muted">{{ bet.match_date }}</td>
+                            <td class="text-muted">{{ bet.bet_type }}</td>
+                            <td class="text-muted">{{ bet.odd }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <p class="text-muted text-left">
+                                Total odds {{ post.total_odd }}
+                            </p>
+                        </div>
+
+
+                    </div>
+
+                </div>           
+            </div>
+            <br>
+        
+        </div>
+    {% endfor %}
+    {% if posts|length == 0 %}
+        <h4>There are no shared posts</h4>
+    {% endif %}
+    
+</div>
+
+
+
+{% endblock %}
+
+ 
+
+

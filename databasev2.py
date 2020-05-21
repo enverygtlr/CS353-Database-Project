@@ -229,6 +229,22 @@ def user_info(userid = '10'):
         return 'unlimited'
     return None
 
+def user_info_by_name(name):
+    if name is None: return None
+
+    conn = connectToPostgres()
+    user_data = execute("select s_type from suser where s_name = %s " , conn , select=True , args= ([name]))
+    if user_data[0]['s_type'] == 'player':
+        player_data = execute("select * from suser natural join player where s_name = %s " , conn , select=True , args=([name])) 
+        return player_data[0]
+    elif user_data[0]['s_type'] == 'editor':
+        editor_data = execute("select * from suser natural join editor where s_name = %s " , conn , select=True , args=([name])) 
+        return editor_data[0]
+    elif user_data[0]['s_type'] == 'admin':
+        admin_data = execute("select * from suser natural join admin where s_name = %s " , conn , select=True , args=([name])) 
+        return admin_data[0]
+    return None
+
 def findBetId(homeTeam, awayTeam, betType, matchDate):
     conn = connectToPostgres()
     homeTeamIdQuery = f'''
@@ -312,7 +328,7 @@ def get_user_betslips(user_id, include_private=False):
         {
             'betslip_id': 3,
             'stake', Decimal('150.50')),
-            'total_odd', None), 
+            'total_odd', 12, 
             'betslip_date', datetime.datetime(2022, 2, 21, 11, 32, 23))
             'bet':
                 [
@@ -890,3 +906,11 @@ def get_like_back(user_id = '6' ,  post_id = '3'):
     conn = connectToPostgres()
     execute("delete  from postlikes where  user_id = %s and post_id = %s " , conn , select= False , args = ([user_id , post_id]))
     execute("update post  set no_of_likes = no_of_likes - %s where post_id = %s " , conn , select=False , args =([ 1 , post_id]) )
+
+def get_bet_types(sportbranch = 'basketball'):
+    if sportbranch == 'football':
+        return [ 'MS1' , 'MS2' , 'MSX' '1.5 UST' , '1.5 ALT' , '2.5 UST' , '2.5 ALT']
+    elif sportbranch == 'basketball':
+        return ['MS1' , 'MS2' , 'MSX' , '200.5 UST' , '200.5 ALT' , '160.5 UST' , '160.5 ALT' , 'H 30 1' , 'H 30 2' , 'H 60 1' , 'H 60 2' ]
+    elif sportbranch == 'tennis':
+        return['MS1' , 'MS2' , 'MSX' , 'H 1 1' , 'H 1 2' , 'H 2 1' , 'H 2 2']

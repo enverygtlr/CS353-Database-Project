@@ -21,7 +21,6 @@
           <td>{{ match.t1name }}</td>
           <td>{{ match.t2name }}</td>
           <td>{{ match.match_date }}</td>
-          <td>{{  match.mbn }}</td>
           {% for bet in match.bets %}
             <td>
               <a href="/add_selected_bet?col={{ loop.index0 }}&row={{ outer_loop.index0 }}" class="btn text-info" style="padding: 0;">

@@ -63,6 +63,7 @@ def login_page():
         if validated:            
             session['username'] = dictionary['username']
             session['user_id']  = dictionary['user_id']
+            session['user_type']  = dictionary['type']
             session['type'] = dictionary['type']
             session['loggedin'] = True
             session['selected'] = []
@@ -140,6 +141,30 @@ def search_page():
                             users=users,
                             search_key=search_key,
                             username=username)
+
+@app.route('/users/<pname>', methods=["GET", "POST"])
+def user_page(pname):
+    loggedin = session.get('loggedin')
+    username = session.get('username')
+    user_type = session.get('user_type')
+    user_id = session.get('user_id')
+
+    info = db.user_info_by_name(pname)
+
+    if info is None:
+        return redirect('/')
+    
+    posts = db.get_user_betslips(user_id, True)
+    # return str(posts)
+
+        
+    return render_template('userpage.html', 
+                            loggedin=loggedin,
+                            username=username,
+                            user_type=user_type,
+                            info=info,
+                            posts=posts)
+    
 
 # end of pages 
 # start of functions
