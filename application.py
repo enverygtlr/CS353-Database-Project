@@ -122,13 +122,12 @@ def profile():
         print('asdlfjskdfjksdfjksdfjksdfjksdf', x)
 
 
-    return render_template('profile.html', 
+    return render_template('profilepage.html', 
                             loggedin=loggedin,
                             username=username,
                             user_type=user_type,
                             info=info,
-                            posts=posts,
-                            )
+                            posts=posts)
 @app.route('/feed')
 def feed_page():
     loggedin = session.get('loggedin')
@@ -299,6 +298,22 @@ def like_post():
             db.get_like_back(user_id, post_id)
 
         return redirect_last()
+    return redirect_last()
+
+@app.route('/share_betslip', methods=["GET", "POST"])
+def share_betslip():
+    loggedin = session.get('loggedin')
+    user_id = session.get('user_id')
+    post_id = request.args.get('post_id')
+    context = request.args.get('context')
+
+    betslip_id = request.args.get('betslip_id')
+    shared = request.args.get('shared')
+
+    if betslip_id is not None and user_id is not None and shared is not None:
+        db.create_post(user_id, betslip_id)
+
+
     return redirect_last()
 
 # end of functions

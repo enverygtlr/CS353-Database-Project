@@ -91,21 +91,15 @@
                 </div>              
             </div>
             <br>
+
+            <div class="container row">
+                <p class="text-center">
+                    <a href="/share_betslip?betslip_id={{ post.betslip_id }}&{{ post.shared }}">Share</a>
+                </p>
+            </div>
         
         </div>
-        <label class="checkbox-inline">
-            <!-- if on createPost() loop.index0-->
-             <p>{{ post }}</p>
-              <form  method="post">
-                <div class="btn-group-toggle" data-toggle="buttons">
-                    <label class="btn btn-secondary active">
-                      <input type="submit" checked autocomplete="off"> 
-                      <input type="hidden" name="loopvalue" value = "{{ loop.index0 }}">
-            
-                    </label>
-                  </div>
-               
-            </form>
+
            
     {% endfor %}
     {% if posts|length == 0 %}
@@ -120,4 +114,17 @@
 
  
 
-
+<label class="checkbox-inline">
+    <!-- if on createPost() loop.index0-->
+     <p>{{ post }}</p>
+      <form  method="post">
+        <div class="btn-group-toggle" data-toggle="buttons">
+            <label class="btn btn-secondary active">
+              <input type="submit" checked autocomplete="off"> 
+              <input type="hidden" name="loopvalue" value = "{{ loop.index0 }}">
+    
+            </label>
+          </div>
+       
+    </form>
+</label>

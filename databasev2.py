@@ -354,7 +354,7 @@ def get_user_betslips(user_id, include_private=False):
         sharedBet = 'and shared = 1'
 
     betslipQuery = f'''
-        select betslip_id, stake, total_odd, betslip_date
+        select betslip_id, stake, total_odd, betslip_date, shared
         from betslip
         where creator_user_id = {user_id} {sharedBet}
     '''
@@ -568,6 +568,7 @@ def delete_post(user_id, betslip_id):
 
 
 def create_post(user_id, betslip_id):
+
     #update shared status
     conn = connectToPostgres()
     sharedQuery = f'''
@@ -583,6 +584,8 @@ def create_post(user_id, betslip_id):
         values(0, {betslip_id}, {user_id}, 0, \'{currentdate}\')
     '''
     execute(createPostQuery, conn, select=False) 
+    return True
+
     
     
 
