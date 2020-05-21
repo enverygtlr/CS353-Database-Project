@@ -2856,7 +2856,7 @@ insert into editor(id, salary, success_rate, successful_bets, total_bets, no_of_
 values((select id from suser where s_name = 'editorahmad'), 4000.0, 0, 0,0,0);
   
 
-
+/*
 insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
 values(DEFAULT, (select id from suser where s_name = 'ahmet2'),10, 1,'1999-02-21 10:32:23');
 
@@ -2944,94 +2944,4 @@ values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_n
 
 
 /*  Post, Comment, user_follows, post_like */
-    
-insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
-values(0, 
-(select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet4' and betslip_date = '2018-03-11 12:42:23'),
-(select id from suser where s_name = 'ahmet4'), 0, '2018-12-01 10:15:16');
-
-    
-insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
-values(0, 
-(select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet3' and betslip_date =  '2020-02-21 11:32:23'),
-(select id from suser where s_name = 'ahmet3'), 0, '2017-12-01 12:15:13');
-
-    
-insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
-values(0, 
-(select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet2' and betslip_date = '1999-02-21 10:32:23'),
-(select id from suser where s_name = 'ahmet2'), 0, '2017-11-02 13:13:31');
-
-insert into Post(no_of_people_played, betslip_id, user_id, no_of_likes, post_date)
-values(0, 
-(select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet6' and betslip_date = '2017-12-21 10:32:23'),
-(select id from suser where s_name = 'ahmet6'), 0, '2017-12-21 10:32:23s');
-
-
-/*comment*/
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
-'This is a comment');
-
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet3' and post_date = '2017-12-01 12:15:13'),
-'This is an another comment');
-
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6' and post_date = '2017-12-21 10:32:23'),
-'This is  yet an another comment');
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6' and post_date = '2017-12-21 10:32:23'),
-'hocam tiyo var mi ');
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6' and post_date = '2017-12-21 10:32:23'),
-'hello ');
-insert into Comment(post_id, context)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet6' and post_date = '2017-12-21 10:32:23'),
-':)');
-
-
-/*user follows*/
-insert into UserFollows(follower_id, followee_id)
-values((select id from suser where s_name = 'ahmet4'),(select id from suser where s_name = 'ahmet3'));
-
-insert into UserFollows(follower_id, followee_id)
-values((select id from suser where s_name = 'ahmet2'),(select id from suser where s_name = 'ahmet4'));
-
-insert into UserFollows(follower_id, followee_id)
-values((select id from suser where s_name = 'admin1'),(select id from suser where s_name = 'ahmet3'));
-
-insert into UserFollows(follower_id, followee_id)
-values((select id from suser where s_name = 'admin2'),(select id from suser where s_name = 'ahmet3'));
-
-/*postlike*/
-
-insert into PostLikes(post_id, user_id)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
-(select id from suser where s_name = 'admin1'));
-
-insert into PostLikes(post_id, user_id)
-values((select post_id from Post, Suser where user_id = id and s_name = 'ahmet2' and post_date = '2017-11-02 13:13:31'),
-(select id from suser where s_name = 'admin2'));
-
-/*editor suggests*/
-insert into Editor_Suggests(bet_id, user_id, trust, shared_content)
-values((select bet_id from (Bet natural join Match) where bet_type = 'MS 2' and match_id =(select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id)),
-   (select id from suser where s_name = 'editor1'),
-   10,
-   'banko bet');
-
-insert into Editor_Suggests(bet_id, user_id, trust, shared_content)
-values((select bet_id from (Bet natural join Match) where bet_type = '1.5 UST' and match_id =(select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'altinordu' and t2.name = 'karsiyaka' and home_team_id = t1.team_id and away_team_id = t2.team_id)) ,
-   (select id from suser where s_name = 'editor1'),
-   10,
-   'oynayin');
-
-insert into Editor_Suggests(bet_id, user_id, trust, shared_content)
-values((select bet_id from (Bet natural join Match) where bet_type = 'MS 1' and match_id =(select match_id from Match , Team as t1, Team as t2 
-    where t1.name = 'adanademirspor' and t2.name = 'adanaspor' and home_team_id = t1.team_id and away_team_id = t2.team_id)),
-   (select id from suser where s_name = 'editorfaruk'),
-   10,
-   'kesin oynayin mukemmel adana derbisi');
+   
