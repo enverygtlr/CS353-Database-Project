@@ -51,7 +51,6 @@ values(
     0,0
 );
 
-
 insert into Bet(match_id, mbn, bet_type, cancelled)
 values(
     (select match_id from Match , Team as t1, Team as t2 
@@ -393,8 +392,8 @@ values((select id from suser where s_name = 'editor1'), 4000.0, 0, 0,0,0);
   
 
 
-insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date,total_odd) 
-values(DEFAULT, (select id from suser where s_name = 'ahmet2'),10, 1,'1999-02-21 10:32:23',1 );
+insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
+values(DEFAULT, (select id from suser where s_name = 'ahmet2'),10, 1,'1999-02-21 10:32:23');
 
 insert into BetSlipHas(betslip_id, bet_id)
 values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet2') 
@@ -408,16 +407,16 @@ values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_n
 
 
 
-insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date,total_odd) 
-values(DEFAULT, (select id from suser where s_name = 'ahmet3'),150.50, 1,'2020-02-21 11:32:23' , 1);
+insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
+values(DEFAULT, (select id from suser where s_name = 'ahmet3'),150.50, 1,'2020-02-21 11:32:23');
 
 insert into BetSlipHas(betslip_id, bet_id)
 values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet3' and betslip_date = '2020-02-21 11:32:23') 
  , (select bet_id from (Bet natural join Match) where bet_type = 'MS 2' and match_id =(select match_id from Match , Team as t1, Team as t2 
     where t1.name = 'galatasaray' and t2.name = 'fenerbahce' and home_team_id = t1.team_id and away_team_id = t2.team_id)));
 
-insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date ,total_odd) 
-values(DEFAULT, (select id from suser where s_name = 'ahmet4'),150.50, 1,'2018-03-11 12:42:23' , 1);
+insert into BetSlip(betslip_id, creator_user_id, stake, shared, betslip_date) 
+values(DEFAULT, (select id from suser where s_name = 'ahmet4'),150.50, 1,'2018-03-11 12:42:23');
 
 insert into BetSlipHas(betslip_id, bet_id)
 values( (select betslip_id from BetSlip,Suser where creator_user_id = id and s_name = 'ahmet4' and betslip_date = '2018-03-11 12:42:23') 
@@ -493,8 +492,3 @@ values((select bet_id from (Bet natural join Match) where bet_type = '1.5 UST' a
    10,
    'oynayin');
 
-
--- create view maclar as 
---     (select t1.name as  home_team, t2.name as away_team, match_date, match_id 
---     from match, team t1, team t2
---     where home_team_id = t1.team_id and away_team_id = t2.team_id ); 
