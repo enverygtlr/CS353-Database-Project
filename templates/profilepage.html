@@ -61,6 +61,7 @@
                             <th class="text-muted">Date</th>
                             <th class="text-muted">Type</th>
                             <th class="text-muted">Odd</th>
+                            <th class="text-muted">Score</th>
                     </tr>
                     {% for bet in post.bet %}
                         <tr>
@@ -68,6 +69,7 @@
                             <td class="text-muted">{{ bet.match_date }}</td>
                             <td class="text-muted">{{ bet.bet_type }}</td>
                             <td class="text-muted">{{ bet.odd }}</td>
+                            <td class="text-muted"> {{bet.home_score}} </td>
                         </tr>
                     {% endfor %}
                 </table>
@@ -90,12 +92,8 @@
 
             <div class="container row">
                 <p class="text-center">
-<<<<<<< HEAD
-                    <a href="/share_betslip?betslip_id={{ post.betslip_id }}& shared ={{ post.shared }}">Share</a>
-=======
                     <a href="/share_betslip?betslip_id={{ post.betslip_id }}&shared={{ post.shared }}">
                         {{ 'Share' if post.shared == 0 else 'Stop Sharing' }}</a>
->>>>>>> 555091c791e9650bec7d65c07d45f2c2edd75f6d
                 </p>
             </div>
         <!--                     -->

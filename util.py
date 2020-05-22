@@ -32,3 +32,4 @@ def convert_smatch(match):
 
 def validate_addition(selected, row, col, matches):
     pass
+

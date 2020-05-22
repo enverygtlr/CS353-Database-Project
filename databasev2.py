@@ -3,7 +3,6 @@ import psycopg2.extras
 import sys
 from decimal import *
 
-
 from datetime import date
 import datetime
 
@@ -199,9 +198,10 @@ def get_bet_table(sportbranch="-", league="-", minDate="-"):
         matchId = match["match_id"]
 
         getBetsQuery = f'''
-            select mbn, bet_type, cancelled, odd, odd_timestamp 
+            select mbn, bet_type, cancelled, odd, odd_timestamp, bet_id 
             from currentBetView
             where match_id = {matchId} {where_clause}
+            order by bet_id asc
         '''
         
         bets =  execute(getBetsQuery, conn, select=True)
@@ -278,34 +278,28 @@ def findBetId(homeTeam, awayTeam, betType, matchDate):
 
     return betId
 #admin queries
-def cancel_bet(homeTeam, awayTeam, betType, matchDate):
-    conn = connectToPostgres()
-  
-    betId = findBetId(homeTeam, awayTeam, betType, matchDate)
-    
+def cancel_bet(betId):
+    conn = connectToPostgres() 
     cancelQuery = f'''
-        update bet
-        set cancelled = 1
+        delete from bet
         where bet_id = {betId}
     '''
     print(cancelQuery)
 
     execute(cancelQuery, conn, select=False)
 
-def update_odds(homeTeam, awayTeam, matchDate, betType, newOdd):
+def update_odds(betId, newOdd):
     conn = connectToPostgres()
-    betId = findBetId(homeTeam,awayTeam,betType,matchDate)
-    print(betId)
-
     timestamp = datetime.datetime.now().replace(microsecond=0)
 
     insertQuery = f'''
         insert into odd(odd, odd_timestamp, bet_id)
-        values({newOdd}, \'{timestamp}\',{betId});
+        values({newOdd}, '{timestamp}',{betId});
     '''
     print(insertQuery)
-    
+
     execute(insertQuery, conn, select=False)
+
 
 def getBetsOfBetslip(betslip_id):
     conn = connectToPostgres()

@@ -3,23 +3,100 @@ from flask_bootstrap import Bootstrap
 import databasev2 as db
 from util import *
 from forms import *
+from forms import OddForm
 
 app = Flask(__name__)
 boot = Bootstrap(app)
 
 app.secret_key = '9c543e044e10b6e0bfb7'
 
-# start of pages
+@app.route('/cancel_bet', methods=["GET", "POST"])
+def cancel_bet():
+    
 
-@app.route('/', methods=["GET", "POST"])
-def home_page():
+    bet_id = request.args.get('bet_id')
+    if bet_id is not None:
+        db.cancel_bet(bet_id)
+
+    
+
+    return redirect_last()
+
+
+
+
+# start of pages
+@app.route('/adminpage', methods=["GET", "POST"])
+def admin():
+    odd_form = OddForm()
+    
     loggedin = session.get('loggedin') # True if exists else None
     matches = db.get_bet_table()
     selected = session.get('selected')
     user_id = session.get('user_id')
     username = session.get('username')
-    balance = None 
+    balance = None
+    user_type = session.get('type')
 
+    if loggedin is not None:
+        balance = db.user_info(session['user_id'])
+
+    form = PlayBetForm()
+    
+    if odd_form.validate_on_submit():
+        new_odd = odd_form.odd.data
+        bet_id = odd_form.hidden.data
+        db.update_odds(bet_id, new_odd)
+        return redirect('/adminpage')
+    # if request.method == 'GET':
+    #     print('hi')
+    #     bet_id = request.form['betid']
+        
+        # print('bet id =========', bet_id )
+    
+
+    if form.validate_on_submit() and loggedin is not None:
+        stake = form.stake.data
+        count = len(selected)
+        
+
+        success, message = db.play_bet(selected, user_id, stake, 0)
+    # bet_id = form.get
+        if success:
+            session['selected'] = []
+            flash(message)
+            return redirect('/')
+        else:
+            flash(message, 'error')
+            return redirect('/')  
+
+ 
+    # if cancel_form.validate_on_submit():
+    #     print('anain mi')
+    #     if 'cancel_button' in request.form:
+    #         print('anani ami anakragucu')
+    
+    return render_template('adminpage.html',
+                            user_type = user_type, 
+                            loggedin=loggedin,
+                            matches=matches,
+                            form = form,
+                            odd_form = odd_form,
+                            balance = balance, 
+                            username=username)
+
+
+@app.route('/', methods=["GET", "POST"])
+def home_page():
+    loggedin = session.get('loggedin') # True if exists else None
+    matches = db.get_bet_table()
+    player_type = session.get('type')
+    suggested = session.get('suggested')
+    selected = session.get('selected')
+    user_id = session.get('user_id')
+    username = session.get('username')
+    balance = None 
+    user_type = session.get('type')
     if loggedin is not None:
         balance = db.user_info(session['user_id'])
 
@@ -39,21 +116,26 @@ def home_page():
             flash(message, 'error')
             return redirect('/')  
 
-    return render_template('homepage.html', 
+    return render_template('homepage.html',
+                            user_type = user_type, 
                             loggedin=loggedin,
                             matches=matches,
                             selected=selected,
                             balance=balance,
                             form=form,
-                            username=username)
+                            username=username,
+                            player_type=player_type,
+                            suggested=suggested)
 
 @app.route('/login', methods=["GET", "POST"])
 def login_page():
     loggedin = session.get('loggedin')
     username = session.get('username')
 
-    if loggedin is not None: return redirect('/')
-
+    if loggedin is not None:
+        user_id = session.get('user_id')
+        posts = db.get_feed_posts(user_id)
+        
     form = LoginForm()
 
     if form.validate_on_submit():
@@ -66,6 +148,7 @@ def login_page():
             session['type'] = dictionary['type']
             session['loggedin'] = True
             session['selected'] = []
+            session['suggested'] = None
 
             return redirect('/') # redirect to home
         else:

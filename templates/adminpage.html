@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid" style="width: 90%;">
+    <div class="row">
+        <div class="col-md-8 container">
+            <div class="content-section">
+                <!--MAIN PANEL-->
+                <h4>Current Matches</h4>
+                {% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+<table class="table table-sm">
+    <thead>
+      <tr>
+        <th scope="col">Home Team</th>
+        <th scope="col">Away Team</th>
+        <th scope="col">Match Date</th>
+      <!--
+        <th scope="col">MS1</th>
+        <th scope="col">MSX </th>
+        <th scope="col">MS2 </th>
+        <th scope="col">1.5 ALT</th>
+        <th scope="col">1.5 UST</th>
+        <th scope="col">2.5 ALT</th>
+        <th scope="col">2.5 UST</th>
+      -->
+      </tr>
+    </thead>
+    <tbody>
+    {% for match in matches %}
+    {% set outer_loop = loop %}
+      <tr> 
+          <td>{{ match.t1name }}</td>
+          <td>{{ match.t2name }}</td>
+          <td>{{ match.match_date }}</td>
+
+          {% for bet in match.bets %}
+          
+            <td>
+        
+                
+            
+                
+                {{ bet.bet_type }}
+                /
+                {{ bet.odd }}
+                
+                
+
+                  <!-- <input type="submit" name="cancel_button" class="btn btn-info" value="Cancel"> -->
+             
+                  <a class="btn btn-primary" href="/cancel_bet?bet_id={{ bet.bet_id }}"  style="padding: 0;"> Delete </a>
+                  
+                  
+                  <!-- <form method = "post" action= "" > 
+                   {{ url_for('cancel_bet') }} 
+                        <div class="form-group"><label class="form-control-label" for="odd"></label>
+                                    
+                                        
+                            <input class="form-control" id="odd" name="odd" type="text" value="">
+                        
+                    <small class="form-text text-muted">New Odd</small>
+                    </div>
+                    </form> -->
+                    <form method = "POST" action="">
+                    {{ form.csrf_token }}
+
+                    {{render_form_row([odd_form.odd])}}
+                    {{ render_form_row([odd_form.submit]) }}
+                    
+                    {{ odd_form.hidden(value= bet.bet_id ) }}
+                    </form>
+                    <!-- <form action="{{ url_for('admin') }}" method="get">
+
+                       <input name = "betid " value="{{bet.bet_id}}" >
+                        <input type= "" value="Ssdfit">
+                    </form>
+
+                    </form> -->
+
+                </td>
+     
+          {% endfor %}
+      </tr>
+    {% endfor %}
+     
+    </tbody>
+  </table>
+            </div>
+        </div>
+        {% if loggedin != None %}
+        <div class="col-md-4 container">
+            <div class="content-section">
+                <!--SIDE PANEL-->
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -23,3 +23,10 @@ class PlayBetForm(FlaskForm):
 class SearchForm(FlaskForm):
     search = TextField('search', validators=[DataRequired()])
 
+class OddForm(FlaskForm):
+    odd = FloatField(description='New Odd')
+    submit = SubmitField('Change Odd')
+    hidden = HiddenField()
+
+    
+
