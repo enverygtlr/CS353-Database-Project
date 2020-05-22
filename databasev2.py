@@ -918,3 +918,28 @@ def get_bet_types(sportbranch = 'basketball'):
         return ['MS1' , 'MS2' , 'MSX' , '200.5 UST' , '200.5 ALT' , '160.5 UST' , '160.5 ALT' , 'H 30 1' , 'H 30 2' , 'H 60 1' , 'H 60 2' ]
     elif sportbranch == 'tennis':
         return['MS1' , 'MS2' , 'MSX' , 'H 1 1' , 'H 1 2' , 'H 2 1' , 'H 2 2']
+
+
+def is_following( user_id = '7' , followed_user_id  = '3'):
+    conn = connectToPostgres()
+    temp_follow = execute("select * from  userfollows where follower_id  = %s and followee_id = %s " , conn , select=True , args = ([user_id , followed_user_id]))
+    if len(temp_follow) != 0:
+        return True
+    else:
+        return False
+
+
+def unfollow( user_id = '1' , followed_user_id  = '3'):
+    conn = connectToPostgres()
+    temp_follow = execute("select * from  userfollows where follower_id  = %s and followee_id = %s " , conn , select=True , args = ([user_id , followed_user_id]))
+    if len(temp_follow) != 0:
+        execute("delete from userfollows where follower_id  = %s and followee_id = %s " , conn , select=False , args = ([user_id , followed_user_id]))
+        s_type = execute("select s_type from suser  where id = %s " , conn , select=True , args = ([followed_user_id]))
+        print(s_type)
+        if s_type[0]['s_type'] == 'player':
+            execute("update player set no_of_followers = no_of_followers - %s  where id = %s" , conn , select=False  , args = ([1 , followed_user_id]))
+        elif s_type[0]['s_type'] == 'editor':
+            execute("update editor set no_of_followers = no_of_followers - %s  where id = %s" , conn , select=False  , args = ([1 , followed_user_id]))
+        return True
+    else:
+        return False

@@ -178,6 +178,7 @@ def user_page(pname):
     username = session.get('username')
     user_type = session.get('user_type')
     user_id = session.get('user_id')
+    is_following = None
 
     info = db.user_info_by_name(pname)
 
@@ -186,6 +187,9 @@ def user_page(pname):
 
     if pname == username:
         return redirect('/profile')
+
+    if None not in {user_id, info['id']}:
+        is_following = db.is_following(user_id, info['id'])
     
     posts = db.get_user_betslips(user_id, True)
     # return str(posts)
@@ -196,7 +200,8 @@ def user_page(pname):
                             username=username,
                             user_type=user_type,
                             info=info,
-                            posts=posts)
+                            posts=posts,
+                            is_following=is_following)
     
 
 # end of pages 
@@ -307,9 +312,12 @@ def share_betslip():
     #betslip_id = request.args.get('betslip_id')
     betslip_id = request.args.get('betslip_id')
     shared = request.args.get('shared')
-    print('betslipid: ', betslip_id, 'user_id: ', user_id, 'shared', shared )
-    if betslip_id is not None and user_id is not None:
-        db.create_post(user_id, betslip_id)
+
+    if betslip_id is not None and user_id is not None and shared is not None:
+        if str(shared) != '1': # not already sharing
+            db.create_post(user_id, betslip_id)
+        else:
+            db.delete_post(user_id, betslip_id)
 
 
     return redirect_last()
@@ -321,14 +329,13 @@ def follow_user():
     user_id = session.get('user_id')
     post_id = request.args.get('post_id')
 
-    betslip_id = request.args.get('betslip_id')
     requested_user_id = request.args.get('user')
 
-    if None not in {betslip_id, user_id, requested_user_id}:
-        success = db.follow_user(user_id, requested_user_id)
+    if None not in {user_id, requested_user_id}:
+        success = db.follow_user(user_id, int(requested_user_id))
 
         if success is False:
-            db.unfollow_user(user_id, requested_user_id)
+            db.unfollow(user_id, requested_user_id)
 
     return redirect_last()
 
