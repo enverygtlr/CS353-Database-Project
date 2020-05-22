@@ -3,6 +3,7 @@ import psycopg2.extras
 import sys
 from decimal import *
 
+
 from datetime import date
 import datetime
 
@@ -376,7 +377,7 @@ def get_user_betslips(user_id, include_private=False):
         betslip['bet'] = getBetsOfBetslip(betslip['betslip_id'])
         resultTable.append(betslip)
 
-    print(resultTable)
+    #print(resultTable)
     return resultTable
 
 def delete_user(user_id):

@@ -4,7 +4,6 @@ import databasev2 as db
 from util import *
 from forms import *
 
-
 app = Flask(__name__)
 boot = Bootstrap(app)
 
@@ -305,10 +304,11 @@ def share_betslip():
     user_id = session.get('user_id')
     post_id = request.args.get('post_id')
 
+    #betslip_id = request.args.get('betslip_id')
     betslip_id = request.args.get('betslip_id')
     shared = request.args.get('shared')
-
-    if betslip_id is not None and user_id is not None and shared is not None:
+    print('betslipid: ', betslip_id, 'user_id: ', user_id, 'shared', shared )
+    if betslip_id is not None and user_id is not None:
         db.create_post(user_id, betslip_id)
 
 
