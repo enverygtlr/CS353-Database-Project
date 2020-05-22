@@ -310,7 +310,7 @@ def getBetsOfBetslip(betslip_id):
     conn = connectToPostgres()
     betSelectQuery = f'''
         with oddofbet as 
-        (select   bet_id, t1.name as t1name, t2.name as t2name , bet_type , mbn,  max(odd_timestamp) as odd_timestamp, match_date
+        (select   bet_id, t1.name as t1name, t2.name as t2name , bet_type , mbn,  max(odd_timestamp) as odd_timestamp, match_date, home_score, away_score
         from betslip natural join betsliphas natural join bet natural join odd natural join match , team as t1 , team as t2 
         where betslip_id = {betslip_id} and home_team_id = t1.team_id  and away_team_id = t2.team_id and odd_timestamp < betslip_date
         group by  bet_id, t1name, t2name , mbn, bet_type, match_date)
@@ -626,16 +626,16 @@ def update_shared_status(betslip_id = '3'):
 def editor_suggests(editor_id = '1' , bet_id = "4" , comment = "cok iyi bet" , trust = '20'):
     conn = connectToPostgres()
     #get the match id
-    queryString =  "select match_id , bet_id from bet natural join editor_suggests where user_id = %s   "
-    matchandbets = execute(queryString , conn , select=True , args = ([editor_id]))
-    queryString = "select match_id  from bet  where bet_id = %s "
-    match_id = execute(queryString , conn , select=True , args = ([bet_id]))
-    queryString = "select * from editor_suggests natural join match where  user_id = %s and match_id = %s "
-    similiarsuggests = execute(queryString , conn , select=True , args= ([ editor_id,match_id[0]["match_id"]]))
+    selectEditorQuery = f''' 
+        select user_id, bet_id
+        from editor_suggests
+        where user_id = {editor_id} and bet_id = {bet_id};
+    '''
+    similiarsuggests = execute(selectEditorQuery, conn, select=True)
     if len(similiarsuggests) == 0:
         execute("insert into editor_suggests values(%s , %s , %s , %s ) ",conn , select = False, args=([bet_id , editor_id , trust, comment] ))
     else:
-        print("you already suggested one bet from the match ")
+        print("you already suggested one bet from the match")
 
 def search_by_username(username = "ahmet3"):
     conn = connectToPostgres()
