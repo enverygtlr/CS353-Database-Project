@@ -20,6 +20,9 @@ class LoginForm(FlaskForm):
 class PlayBetForm(FlaskForm):
     stake = IntegerField('stake', validators=[NumberRange(3), DataRequired()])
 
+class SuggestionForm(FlaskForm):
+    suggestion = TextField('suggestion', validators=[DataRequired()])
+
 class SearchForm(FlaskForm):
     search = TextField('search', validators=[DataRequired()])
 
