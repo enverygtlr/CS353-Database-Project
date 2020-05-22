@@ -198,7 +198,7 @@ def get_bet_table(sportbranch="-", league="-", minDate="-"):
         matchId = match["match_id"]
 
         getBetsQuery = f'''
-            select mbn, bet_type, cancelled, odd, odd_timestamp 
+            select mbn, bet_type, cancelled, odd, odd_timestamp, bet_id
             from currentBetView
             where match_id = {matchId} {where_clause}
         '''
@@ -942,3 +942,44 @@ def unfollow( user_id = '1' , followed_user_id  = '3'):
         return True
     else:
         return False
+
+def get_all_editor_suggestions():
+    '''
+    suggestionList = 
+    [
+        {
+            ('s_name', 'editor1'),
+            ('bet_id', 7),
+            ('user_id', 10),
+            ('trust', 10),
+            ('shared_content', 'banko bet'),
+            ('match_id', 3), ('mbn', 5),
+            ('bet_type', 'ALT'), 
+            ('odd_timestamp', datetime.datetime(2020, 3, 12, 23, 1, 25)), 
+            ('odd', Decimal('0.01')),
+            ('cancelled', 0), 
+            ('team1', 'trabzon'), 
+            ('team2', 'besiktas')
+        }
+    ]
+    '''
+
+    conn = connectToPostgres()
+    query = f'''
+        with live_odd as (
+            select *
+            from (select bet_id, max(odd_timestamp) as odd_timestamp from odd group by bet_id) as o1 natural join odd
+         ),
+         editor_info as (
+             select  bet_id, user_id, trust, shared_content, s_name,  email 
+             from editor_suggests, suser
+             where user_id = id
+         )
+        select  s_name , bet_id, user_id, trust,  shared_content, match_id , mbn , bet_type ,  odd_timestamp ,odd ,cancelled, t1.name as t1name, t2.name as t2name 
+        from  editor_info natural join bet natural join live_odd natural join match, team as t1, team as t2
+        where user_id = 10 and home_team_id = t1.team_id and away_team_id = t2.team_id; 
+    '''
+    suggestionList = execute(query, conn, select=True)
+
+    print(suggestionList)
+    return suggestionList

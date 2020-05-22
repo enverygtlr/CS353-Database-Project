@@ -1,0 +1,47 @@
+{% from 'bootstrap/form.html' import render_form, render_field, render_form_row %}
+{% from 'bootstrap/utils.html' import render_flashed_messages %}
+
+
+
+
+
+
+<h3>Suggestion Area</h3>
+<form method="GET" action="/suggest">
+    {{ form.csrf_token }}
+    <div class="container-fluid">
+        <table class="table" style="width: 100%;">
+            {% if suggested is defined %}
+                {% if suggested != None %}
+                <div class="card">
+                    <a href="/remove_suggested" class="btn" style="padding: 0;">
+                        <div class="row text-info">
+                            <div class="container-fluid col-sm-4">{{ suggested.t1name }} </bt> {{ suggested.t2name }}</div>
+                            <div class="container-fluid col-sm-3">{{ suggested.bet_type }}</div>
+                            <div class="container-fluid col-sm-3">{{ suggested.odd }}</div>
+                        </div>
+                    </a>
+                </div>
+
+                {% endif %}
+            {% endif %}
+        </table>
+    </div>
+    <div class="form-group" style="margin-top: 2em;">
+        <label>Enter the suggestion</label>
+        <input class="form-control" id="suggestion" name="suggestion" required type="text" value="">
+        <br>
+        <label>Enter the Trustpoint</label>
+        <input class="form-control" id="trustpoint" name="trustpoint" required type="number" value="">
+    </div>
+    {% if suggested != None %}
+        {% if suggested|length != 0 %}
+        <div class="form-group">
+            <input class="btn btn-primary" style="width: 100%;" type="submit" name="suggestbet" value="Suggest Bet">
+        </div>
+    {% endif %}
+    <br>
+    {% endif %}
+
+    {{ render_messages() }}
+</form>

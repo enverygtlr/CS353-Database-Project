@@ -11,12 +11,25 @@
             </div>
         </div>
         {% if loggedin != None %}
-        <div class="col-md-4 container">
-            <div class="content-section">
-                <!--SIDE PANEL-->
-                {% include "sidepanel.html" %}
+        <div class="container-fluid col-md-4 container">
+            <div class="container">
+                <div class="content-section">
+                    <!--SIDE PANEL-->
+                    {% include "sidepanel.html" %}
+                </div>
             </div>
+            {% if player_type is defined %}
+                {% if player_type == 'editor' %}
+                    <div class="container">
+                        <div class="content-section">
+                            <!--SIDE PANEL-->
+                            {% include "suggestionpanel.html" %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
         </div>
+
         {% endif %}
     </div>
 </div>

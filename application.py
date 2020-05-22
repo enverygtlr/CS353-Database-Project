@@ -19,12 +19,15 @@ def home_page():
     selected = session.get('selected')
     user_id = session.get('user_id')
     username = session.get('username')
+    player_type = session.get('type')
     balance = None 
+    suggested = session.get('suggested')
 
     if loggedin is not None:
         balance = db.user_info(session['user_id'])
 
     form = PlayBetForm()
+
 
     if form.validate_on_submit() and loggedin is not None:
         stake = form.stake.data
@@ -40,13 +43,17 @@ def home_page():
             flash(message, 'error')
             return redirect('/')  
 
+    # return str(session.get('suggested'))
+
     return render_template('homepage.html', 
                             loggedin=loggedin,
                             matches=matches,
                             selected=selected,
                             balance=balance,
                             form=form,
-                            username=username)
+                            username=username,
+                            player_type=player_type,
+                            suggested=suggested)
 
 @app.route('/login', methods=["GET", "POST"])
 def login_page():
@@ -67,6 +74,7 @@ def login_page():
             session['type'] = dictionary['type']
             session['loggedin'] = True
             session['selected'] = []
+            session['suggested'] = None
 
             return redirect('/') # redirect to home
         else:
@@ -133,6 +141,9 @@ def feed_page():
     if loggedin is not None:
         user_id = session.get('user_id')
         posts = db.get_feed_posts(user_id)
+
+
+    
         
     return render_template('feedpage.html', 
                             loggedin=loggedin,
@@ -147,9 +158,11 @@ def suggestions_page():
 
     if loggedin is not None:
         user_id = session.get('user_id')
-        posts = db.get_feed_posts(user_id)
+        posts = db.get_all_editor_suggestions()
+
+    # return str(posts)
         
-    return render_template('feedpage.html', 
+    return render_template('suggestionspage.html', 
                             loggedin=loggedin,
                             posts=posts,
                             username=username)
@@ -192,7 +205,7 @@ def user_page(pname):
     if None not in {user_id, info['id']}:
         is_following = db.is_following(user_id, info['id'])
     
-    posts = db.get_user_betslips(user_id, True)
+        posts = db.get_user_betslips(info['id'], False)
     # return str(posts)
 
         
@@ -272,6 +285,7 @@ def add_selected_bet(): # row, col
     
     # update the selected bets in the sesion
     session['selected'] = selected
+    session['suggested'] = selected_match
     
 
     return redirect_last()  
@@ -336,6 +350,35 @@ def follow_user():
 
         if success is False:
             db.unfollow(user_id, requested_user_id)
+
+    return redirect_last()
+
+@app.route('/remove_suggested', methods=["GET", "POST"])
+def remove_suggested():
+
+    session['suggested'] = []
+
+    return redirect_last()
+
+@app.route('/suggest', methods=["GET", "POST"])
+def add_suggested():
+
+    loggedin = session.get('loggedin')
+    player_type = session.get('type')
+    user_id = session.get('user_id')
+    username = session.get('username')
+    suggested = session.get('suggested')
+    comment = request.args.get('suggestion')
+    trustpoint = request.args.get('trustpoint')
+
+    wow = loggedin is not None and player_type is not None and user_id is not None and username is not None and suggested is not None and comment is not None and trustpoint is not None
+
+    if wow:
+        if player_type == 'editor':
+            db.editor_suggests(int(user_id), suggested['bet_id'], comment, trustpoint)
+
+
+            session['suggested'] = None
 
     return redirect_last()
 
