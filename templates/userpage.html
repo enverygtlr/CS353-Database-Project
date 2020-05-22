@@ -24,7 +24,11 @@
                     </h5>
                 </div>
                 <div class="col-md-4 text-center">
-                    <h5><a href="/follow_user?user={{info.id}}" class="btn badge-light">Follow</a></h5>
+                    {% if is_following == False %}
+                        <h5><a href="/follow_user?user={{info.id}}" class="btn badge-light">Follow</a></h5>
+                    {% else %}
+                        <h5><a href="/follow_user?user={{info.id}}" class="btn badge-light">Unfollow</a></h5>
+                    {% endif %}
                 </div>
                 <div class="col-md-4 text-right">
                     <h5 class="text-dark">

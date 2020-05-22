@@ -18,23 +18,23 @@
         <div class="container-fluid">
             
             <div class="row">
-                <div class="col-md-4 text-left">
+                <div class="col-md-6 text-left">
                     <h5>
+                        Hi,
                         <a class="text-muted" href="/users/{{ info.s_name }}">
                             @{{info.s_name}}
                         </a>
+                        this is your profile.
                     </h5>
                 </div>
-                <div class="col-md-4 text-center">
-                    <h5><a href="/follow_user?user={{info.id}}" class="btn badge-light">Follow</a></h5>
-                </div>
-                <div class="col-md-4 text-right">
+                <div class="col-md-6 text-right">
                     <h5 class="text-dark">
                         Followers: {{ info.no_of_followers }}
                     </h5>
                     
                 </div>
             </div>
+            <h6>You can see your previous bets and chose to share them!</h6>
 
 
                 
@@ -49,16 +49,11 @@
     {% for post in posts %}
         <div class="content-section">
             <div>
-                
                 <div class="row">
-                    <div class="col-md-12">
-                        <p class="text-muted text-right">{{ post.betslip_date }}</p>
-                    </div>
+                    <div class="col-md-4"></div>
+                    <div class="col-md-4"><p class="text-muted text-left"><p class="text-muted text-center h2">{{ post.stake|int }} TL -> {{ (post.total_odd * post.stake)|int }} TL </p></p></div>
+                    <div class="col-md-4"><p class="text-muted text-right">{{ post.betslip_date }}</p></div>
                 </div>
-
-                
-                <p class="text-muted text-center">Won {{ post.stake|int }} TL -> {{ (post.total_odd * post.stake)|int }} TL </p>
-
 
                 <table class="table" style="width: 100%;">
                     <tr>
@@ -95,7 +90,8 @@
 
             <div class="container row">
                 <p class="text-center">
-                    <a href="/share_betslip?betslip_id={{ post.betslip_id }}&{{ post.shared }}">Share</a>
+                    <a href="/share_betslip?betslip_id={{ post.betslip_id }}&shared={{ post.shared }}">
+                        {{ 'Share' if post.shared == 0 else 'Stop Sharing' }}</a>
                 </p>
             </div>
         
@@ -104,7 +100,8 @@
            
     {% endfor %}
     {% if posts|length == 0 %}
-        <h4>There are no shared posts</h4>
+        <br>
+        <h4 class="text-center">You haven't posted anything :(</h4>
     {% endif %}
     
 </div>
