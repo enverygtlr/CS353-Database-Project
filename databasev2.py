@@ -308,7 +308,7 @@ def getBetsOfBetslip(betslip_id):
         (select   bet_id, t1.name as t1name, t2.name as t2name , bet_type , mbn,  max(odd_timestamp) as odd_timestamp, match_date, home_score, away_score
         from betslip natural join betsliphas natural join bet natural join odd natural join match , team as t1 , team as t2 
         where betslip_id = {betslip_id} and home_team_id = t1.team_id  and away_team_id = t2.team_id and odd_timestamp < betslip_date
-        group by  bet_id, t1name, t2name , mbn, bet_type, match_date)
+        group by  bet_id, t1name, t2name , mbn, bet_type, match_date, home_score, away_score)
         select * 
         from oddofbet natural join odd
     '''
